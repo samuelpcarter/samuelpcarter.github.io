@@ -4,12 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BTC Treasury Tickers</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     body {
       background-color: #121212;
       color: #eee;
-      font-family: 'Inter', Arial, sans-serif;
+      font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
       text-align: center;
@@ -21,16 +20,19 @@
     }
     img.logo {
       width: 120px;
-      margin: 20px auto;
+      margin: 20px auto 10px;
       display: block;
     }
     h1 {
       font-size: 2em;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
     }
     table {
       width: 100%;
       border-collapse: collapse;
+      margin-top: 20px;
+      border-radius: 5px;
+      overflow: hidden;
     }
     th, td {
       border: 1px solid #444;
@@ -42,6 +44,41 @@
     tr:nth-child(even) {
       background-color: #1a1a1a;
     }
+    tr td:first-child {
+      font-weight: 600;
+    }
+    .badge-new {
+      background-color: #f7931a;
+      color: #000;
+      border-radius: 3px;
+      padding: 2px 6px;
+      font-size: 0.75em;
+      font-weight: 600;
+      margin-left: 6px;
+    }
+    .refresh-btn {
+      margin: 20px 0 10px;
+      padding: 12px 24px;
+      font-size: 1em;
+      font-weight: 600;
+      cursor: pointer;
+      color: #000;
+      background-color: #f7931a;
+      border: none;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      transition: background-color 0.3s;
+    }
+    .refresh-btn:hover {
+      background-color: #ffa940;
+    }
+    ul.refresh-info {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0 30px;
+      color: #ccc;
+      font-size: 0.9em;
+    }
     @media (max-width: 600px) {
       h1 {
         font-size: 1.5em;
@@ -51,11 +88,21 @@
       }
     }
   </style>
+  <script>
+    function refreshPage() {
+      location.reload();
+    }
+  </script>
 </head>
 <body>
   <div class="container">
-    <img class="logo" src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="Bitcoin Logo">
+    <img class="logo" src="data:image/png;base64,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" alt="Bitcoin Logo">
     <h1>Latest Bitcoin Treasury Tickers</h1>
+    <button class="refresh-btn" onclick="refreshPage()">Refresh</button>
+    <ul class="refresh-info">
+      <li>bitcointreasuries.net refreshed: July 1, 2025</li>
+      <li>bitcointreasuries.com refreshed: June 30, 2025</li>
+    </ul>
     <table>
       <thead>
         <tr>
@@ -68,6 +115,11 @@
         <tr>
           <td>PRE</td>
           <td>Prenetics</td>
+          <td>June 19, 2025</td>
+        </tr>
+        <tr>
+          <td>NEW</td>
+          <td>ExampleCo <span class="badge-new">NEW</span></td>
           <td>June 19, 2025</td>
         </tr>
       </tbody>
