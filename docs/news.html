@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Latest News - BTC Treasury Tickers</title>
+  <link rel="icon" href="https://cryptologos.cc/logos/bitcoin-btc-logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      background-color: #121212;
+      color: #eee;
+      font-family: 'Inter', Arial, sans-serif;
+    }
+    .wrapper {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      margin-bottom: 10px;
+    }
+    a {
+      color: #6ab0ff;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <h1>Latest News</h1>
+    <ul id="news-list"></ul>
+    <footer><a href="index.html">Back to Home</a></footer>
+  </div>
+  <script>
+  fetch('news.json')
+    .then(r => r.json())
+    .then(data => {
+      const list = document.getElementById('news-list');
+      data.forEach(item => {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = item.url;
+        a.textContent = item.title;
+        li.appendChild(a);
+        list.appendChild(li);
+      });
+    })
+    .catch(err => console.error('Error loading news', err));
+  </script>
+</body>
+</html>
