@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Live tracker of companies adding Bitcoin to their treasury. No ETFs.">
+  <title>BTC Treasury Tickers</title>
+  <link rel="icon" type="image/png" href="https://cryptologos.cc/logos/bitcoin-btc-logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      background-color: #121212;
+      color: #eee;
+      font-family: 'Inter', Arial, sans-serif;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    img.logo {
+      width: 120px;
+      height: auto;
+      margin: 20px auto;
+      display: block;
+    }
+    h1 {
+      margin-top: 20px;
+      margin-bottom: 30px;
+      font-size: 2em;
+    }
+    #ticker-banner {
+      overflow-x: auto;
+      white-space: nowrap;
+      margin-bottom: 20px;
+      font-size: 0.9em;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 12px;
+      border: 1px solid #444;
+    }
+    th {
+      background-color: #1f1f1f;
+    }
+    tr:nth-child(even) {
+      background-color: #1a1a1a;
+    }
+    footer {
+      margin-top: 40px;
+      font-size: 0.9em;
+      color: #ccc;
+    }
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.5em;
+      }
+      th, td {
+        padding: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <img class="logo" src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="Bitcoin logo">
+      <h1>Latest Bitcoin Treasury Tickers</h1>
+    </header>
+    <div id="ticker-banner"></div>
+    <main>
+      <table id="treasury-table">
+        <thead>
+          <tr>
+            <th>Ticker</th>
+            <th>Company</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>PRE</td>
+            <td>Prenetics</td>
+            <td>June 19, 2025</td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
+    <footer>
+      Built by Sam. Auto-updates daily. <a href="news.html">Latest News</a>
+    </footer>
+  </div>
+  <script src="main.js"></script>
+</body>
+</html>
