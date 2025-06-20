@@ -29,12 +29,13 @@ async function loadData() {
     const t2 = document.createElement('td');
     t2.textContent = row.name;
     const t3 = document.createElement('td');
-    t3.textContent = row.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+    t3.textContent = row.date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' });
     tr.appendChild(t1);
     tr.appendChild(t2);
     tr.appendChild(t3);
     tbody.appendChild(tr);
   });
+  document.getElementById('last-updated').textContent = `Data last fetched: ${new Date().toUTCString()}`;
 }
 
 document.addEventListener('DOMContentLoaded', loadData);

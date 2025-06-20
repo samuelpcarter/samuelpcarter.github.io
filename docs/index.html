@@ -14,6 +14,9 @@
       padding: 0;
       text-align: center;
     }
+    a {
+      color: #f7931a;
+    }
     .container {
       padding: 40px 20px;
       max-width: 800px;
@@ -27,10 +30,12 @@
     h1 {
       font-size: 2em;
       margin-bottom: 20px;
+      color: #f7931a;
     }
     table {
       width: 100%;
       border-collapse: collapse;
+      border: 1px solid #f7931a;
     }
     th, td {
       border: 1px solid #444;
@@ -38,12 +43,13 @@
     }
     th {
       background-color: #1f1f1f;
+      color: #f7931a;
     }
     tr:nth-child(even) {
       background-color: #1a1a1a;
     }
     .new {
-      color: #0f0;
+      color: #f7931a;
       font-size: 0.8em;
       font-weight: 600;
     }
@@ -52,6 +58,9 @@
       padding: 10px 20px;
       font-size: 1em;
       cursor: pointer;
+      background-color: #f7931a;
+      color: #000;
+      border: none;
     }
     @media (max-width: 600px) {
       h1 {
@@ -87,6 +96,7 @@
         <tr><td colspan="3">Loading...</td></tr>
       </tbody>
     </table>
+    <p id="last-updated"></p>
   </div>
 </body>
 </html>
