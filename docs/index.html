@@ -67,15 +67,13 @@
       location.reload();
     }
   </script>
+  <script src="script.js" defer></script>
 </head>
 <body>
   <div class="container">
     <img class="logo" src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="Bitcoin Logo">
     <h1>Latest Bitcoin Treasury Tickers</h1>
-    <ul>
-      <li>bitcointreasuries.net refreshed: July 1, 2025</li>
-      <li>bitcointreasuries.com refreshed: June 30, 2025</li>
-    </ul>
+    <p>Data sourced from <a href="https://github.com/baxter2/data-btc-treasuries.com" target="_blank">data-btc-treasuries.com</a></p>
     <button class="refresh-btn" onclick="refreshPage()">Refresh</button>
     <table>
       <thead>
@@ -85,17 +83,8 @@
           <th>Date</th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td>PRE</td>
-          <td>Prenetics</td>
-          <td>June 19, 2025</td>
-        </tr>
-        <tr>
-          <td>NEW</td>
-          <td>ExampleCo <span class="new">new</span></td>
-          <td>June 20, 2025</td>
-        </tr>
+      <tbody id="data-body">
+        <tr><td colspan="3">Loading...</td></tr>
       </tbody>
     </table>
   </div>
