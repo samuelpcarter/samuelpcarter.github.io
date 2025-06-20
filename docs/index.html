@@ -1,30 +1,28 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BTC Treasuries — New Tickers</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>NEW Bitcoin Treasury Tickers</title>
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/png" href="https://bitcoin.org/img/icons/opengraph.png">
 </head>
 <body>
   <header>
     <img class="logo" src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="BTC">
-    <h1>New Bitcoin Treasury Tickers</h1>
+    <h1>Fresh BTC Treasury Tickers</h1>
     <p id="stamp">loading…</p>
-    <button id="refresh">↻ Refresh</button>
+    <button id="reload">↻ refresh</button>
   </header>
 
   <main>
     <table>
-      <thead>
-        <tr><th>Ticker</th><th>Organisation</th><th>BTC Held</th><th>USD Value</th></tr>
-      </thead>
-      <tbody id="data"></tbody>
+      <thead><tr><th>Ticker</th><th>Entity</th><th>BTC</th><th>USD Value</th></tr></thead>
+      <tbody id="tbody"></tbody>
     </table>
   </main>
 
-  <footer>Auto-updates hourly • Source: bitcointreasuries.com</footer>
+  <footer>Auto-updates hourly • Source bitcointreasuries.com</footer>
   <script src="script.js"></script>
 </body>
 </html>
