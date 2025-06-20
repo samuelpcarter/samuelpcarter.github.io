@@ -3,90 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BTC Treasury Tickers</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    body {
-      background-color: #121212;
-      color: #eee;
-      font-family: 'Inter', Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      text-align: center;
-    }
-    .container {
-      padding: 40px 20px;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    img.logo {
-      width: 120px;
-      margin: 20px auto;
-      display: block;
-    }
-    h1 {
-      font-size: 2em;
-      margin-bottom: 20px;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    th, td {
-      border: 1px solid #444;
-      padding: 12px;
-    }
-    th {
-      background-color: #1f1f1f;
-    }
-    tr:nth-child(even) {
-      background-color: #1a1a1a;
-    }
-    .new {
-      color: #0f0;
-      font-size: 0.8em;
-      font-weight: 600;
-    }
-    .refresh-btn {
-      margin: 20px 0;
-      padding: 10px 20px;
-      font-size: 1em;
-      cursor: pointer;
-    }
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 1.5em;
-      }
-      th, td {
-        padding: 8px;
-      }
-    }
-  </style>
-  <script>
-    function refreshPage() {
-      location.reload();
-    }
-  </script>
-  <script src="script.js" defer></script>
+  <title>BTC Treasuries — New Tickers</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="https://bitcoin.org/img/icons/opengraph.png">
 </head>
 <body>
-  <div class="container">
-    <img class="logo" src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="Bitcoin Logo">
-    <h1>Latest Bitcoin Treasury Tickers</h1>
-    <p>Data sourced from <a href="https://github.com/baxter2/data-btc-treasuries.com" target="_blank">data-btc-treasuries.com</a></p>
-    <button class="refresh-btn" onclick="refreshPage()">Refresh</button>
+  <header>
+    <img class="logo" src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="BTC">
+    <h1>New Bitcoin Treasury Tickers</h1>
+    <p id="stamp">loading…</p>
+    <button id="refresh">↻ Refresh</button>
+  </header>
+
+  <main>
     <table>
       <thead>
-        <tr>
-          <th>Ticker</th>
-          <th>Company</th>
-          <th>Date</th>
-        </tr>
+        <tr><th>Ticker</th><th>Organisation</th><th>BTC Held</th><th>USD Value</th></tr>
       </thead>
-      <tbody id="data-body">
-        <tr><td colspan="3">Loading...</td></tr>
-      </tbody>
+      <tbody id="data"></tbody>
     </table>
-  </div>
+  </main>
+
+  <footer>Auto-updates hourly • Source: bitcointreasuries.com</footer>
+  <script src="script.js"></script>
 </body>
 </html>
