@@ -1,5 +1,4 @@
-# BTC-Treasury-Tickers
+# Sam Carter Portfolio
 
-This project now hosts a single web page that displays a full TradingView chart
-for Bitcoin. Open `docs/index.html` in any browser to access the interactive
-chart.
+This repository contains a simple static portfolio website for **Sam Carter**.
+Open `docs/index.html` in your browser to view the site.
