@@ -4,6 +4,8 @@ const proxies=[u=>`https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
                u=>`https://proxy.cors.sh/${u}`];
 const tbody=document.getElementById('tbody');
 const stamp=document.getElementById('stamp');
+const priceEl=document.getElementById('price');
+const priceSrc='https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd';
 document.getElementById('reload').onclick=load;
 load(); setInterval(load,3600e3);
 
@@ -15,6 +17,13 @@ async function fetchHTML(url){
     }catch(_){}
   }
   throw Error('all proxies failed');
+}
+
+async function fetchPrice(){
+  const r=await fetch(priceSrc);
+  if(!r.ok) throw Error('price fetch failed');
+  const json=await r.json();
+  return json.bitcoin.usd;
 }
 function parse(html){
   const doc=new DOMParser().parseFromString(html,'text/html');
@@ -42,6 +51,8 @@ function render(rows){
 async function load(){
   stamp.textContent='updating…';
   try{
+    const price=await fetchPrice();
+    priceEl.textContent='$'+price.toLocaleString();
     const html=await fetchHTML(sources[0]);
     render(parse(html));
     stamp.textContent='last update '+new Date().toLocaleString();
