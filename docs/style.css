@@ -5,7 +5,8 @@ nav{display:flex;gap:18px;padding:12px 24px;background:#1a1a1a}
 nav a{color:var(--fg);text-decoration:none}
 nav a.logo{font-weight:700;color:var(--orange)}
 #root,body,html{height:100%}
-header{display:flex;flex-direction:column;justify-content:center;align-items:center;height:100%}
+header{display:flex;flex-direction:column;justify-content:center;align-items:center;padding:40px 0}
+#chart{max-width:960px;margin:0 auto 40px}
 h1{color:var(--orange);font-size:2rem;margin-bottom:6px}
 #price{font-size:6rem;margin:20px 0;font-weight:700}
 #stamp{font-size:.85rem;color:#aaa;margin-bottom:10px}

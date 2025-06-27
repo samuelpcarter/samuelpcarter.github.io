@@ -1,5 +1,5 @@
 # BTC-Treasury-Tickers
 
 This project hosts a tiny web page that displays the current Bitcoin price.
-The price is fetched from CoinGecko via open CORS proxies and updates automatically every minute.
-Open `docs/index.html` in a browser to see the live value.
+The numeric value still comes from CoinGecko, but a TradingView chart is embedded so you can follow the live price action.
+Open `docs/index.html` in a browser to see the chart and price updates every minute.
