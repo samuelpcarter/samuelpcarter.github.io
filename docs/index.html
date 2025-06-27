@@ -3,28 +3,36 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Bitcoin Chart</title>
+  <title>Sam Carter • Portfolio</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="icon" type="image/png" href="https://bitcoin.org/img/icons/opengraph.png">
 </head>
 <body>
-  <div id="tv-chart"></div>
+  <nav>
+    <a class="logo" href="index.html">Sam Carter</a>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="projects.html">Projects</a>
+  </nav>
 
-  <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-  <script>
-    new TradingView.widget({
-      autosize: true,
-      symbol: "BITSTAMP:BTCUSD",
-      interval: "30",
-      timezone: "Etc/UTC",
-      theme: "dark",
-      style: "1",
-      locale: "en",
-      toolbar_bg: "#1a1a1a",
-      enable_publishing: false,
-      allow_symbol_change: true,
-      container_id: "tv-chart"
-    });
-  </script>
+  <header>
+    <h1>Welcome</h1>
+    <p>I'm Sam Carter, a full‑stack developer passionate about building clean and efficient web applications.</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>Featured Project</h2>
+      <p>Take a look at my latest work, <a href="https://github.com/samuelpcarter/BTC-Treasury-Tickers" target="_blank">BTC Treasury Tickers</a>, an experiment in scraping public Bitcoin holdings.</p>
+    </section>
+
+    <section>
+      <h2>Contact</h2>
+      <p>Feel free to reach out at <a href="mailto:samcart37@gmail.com">samcart37@gmail.com</a>.</p>
+    </section>
+  </main>
+
+  <footer>
+    © 2025 Sam Carter
+  </footer>
 </body>
 </html>
