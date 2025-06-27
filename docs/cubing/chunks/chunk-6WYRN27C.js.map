@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../../../../src/cubing/vendor/apache/comlink-everywhere/inside/index.ts"],
-  "sourcesContent": ["import { expose as comlinkExpose } from \"comlink\";\nimport nodeEndpoint from \"../node-adapter\";\n\nconst useNodeWorkarounds =\n  typeof globalThis.Worker === \"undefined\" &&\n  typeof (globalThis as any).WorkerNavigator === \"undefined\";\n\nexport async function nodeEndpointPort(): Promise<\n  Worker & {\n    nodeWorker?: import(\"node:worker_threads\").Worker;\n  }\n> {\n  const { parentPort } = globalThis.process.getBuiltinModule(\n    \"node:worker_threads\",\n  );\n  return nodeEndpoint(\n    parentPort as unknown as import(\"node:worker_threads\").Worker,\n  );\n}\n\nexport function expose(api: any) {\n  if (useNodeWorkarounds) {\n    (async () => {\n      comlinkExpose(api, await nodeEndpointPort());\n    })();\n  } else {\n    comlinkExpose(api);\n  }\n}\n"],
-  "mappings": ";;;;;AAAA,SAAS,UAAU,qBAAqB;AAGxC,IAAM,qBACJ,OAAO,WAAW,WAAW,eAC7B,OAAQ,WAAmB,oBAAoB;AAEjD,eAAsB,mBAIpB;AACA,QAAM,EAAE,WAAW,IAAI,WAAW,QAAQ;AAAA,IACxC;AAAA,EACF;AACA,SAAO;AAAA,IACL;AAAA,EACF;AACF;AAEO,SAAS,OAAO,KAAU;AAC/B,MAAI,oBAAoB;AACtB,KAAC,YAAY;AACX,oBAAc,KAAK,MAAM,iBAAiB,CAAC;AAAA,IAC7C,GAAG;AAAA,EACL,OAAO;AACL,kBAAc,GAAG;AAAA,EACnB;AACF;",
-  "names": []
-}
