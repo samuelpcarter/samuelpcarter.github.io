@@ -166,6 +166,7 @@ let moveQueue = [];
 let animating = false;
 let faceDrag = null;
 let faceStartX = 0;
+const ROT_STEP = 15;
 
 function updateCubeRotation() {
   const cubeEl = document.getElementById('cube');
@@ -254,7 +255,7 @@ function initMouseControls() {
 function animateAndRotate(face, fn, cb) {
   const el = document.getElementById(face);
   const axis = faceAxis[face];
-  el.style.transition = 'transform 0.3s';
+  el.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
   el.style.transform = faceTransforms[face] + ` rotate${axis}(90deg)`;
   setTimeout(() => {
     fn();
@@ -262,7 +263,7 @@ function animateAndRotate(face, fn, cb) {
     el.style.transition = '';
     el.style.transform = faceTransforms[face];
     if (cb) cb();
-  }, 300);
+  }, 500);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -270,13 +271,33 @@ document.addEventListener('DOMContentLoaded', () => {
   initMouseControls();
 });
 document.addEventListener('keydown', e => {
-  switch(e.key.toUpperCase()) {
+  const key = e.key;
+  switch(key.toUpperCase()) {
     case 'U': return queueMove('U');
     case 'D': return queueMove('D');
     case 'F': return queueMove('F');
     case 'B': return queueMove('B');
     case 'L': return queueMove('L');
     case 'R': return queueMove('R');
-    default: return;
+  }
+  switch(key) {
+    case 'ArrowLeft':
+      rotY -= ROT_STEP;
+      updateCubeRotation();
+      break;
+    case 'ArrowRight':
+      rotY += ROT_STEP;
+      updateCubeRotation();
+      break;
+    case 'ArrowUp':
+      rotX -= ROT_STEP;
+      updateCubeRotation();
+      break;
+    case 'ArrowDown':
+      rotX += ROT_STEP;
+      updateCubeRotation();
+      break;
+    default:
+      return;
   }
 });
