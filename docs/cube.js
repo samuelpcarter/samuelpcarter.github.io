@@ -134,6 +134,67 @@ const faceTransforms = {
 
 const faceAxis = { U: 'Y', D: 'Y', F: 'Z', B: 'Z', L: 'X', R: 'X' };
 
+let rotX = -30;
+let rotY = 45;
+let dragging = false;
+let startX, startY;
+
+function updateCubeRotation() {
+  const cubeEl = document.getElementById('cube');
+  cubeEl.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+}
+
+function initMouseControls() {
+  const scene = document.getElementById('scene');
+  const cubeEl = document.getElementById('cube');
+
+  scene.addEventListener('mousedown', e => {
+    dragging = true;
+    startX = e.clientX;
+    startY = e.clientY;
+    cubeEl.classList.add('dragging');
+  });
+
+  document.addEventListener('mousemove', e => {
+    if (!dragging) return;
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+    rotY += dx * 0.4;
+    rotX -= dy * 0.4;
+    updateCubeRotation();
+    startX = e.clientX;
+    startY = e.clientY;
+  });
+
+  document.addEventListener('mouseup', () => {
+    dragging = false;
+    cubeEl.classList.remove('dragging');
+  });
+
+  scene.addEventListener('touchstart', e => {
+    dragging = true;
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+  });
+
+  scene.addEventListener('touchmove', e => {
+    if (!dragging) return;
+    const dx = e.touches[0].clientX - startX;
+    const dy = e.touches[0].clientY - startY;
+    rotY += dx * 0.4;
+    rotX -= dy * 0.4;
+    updateCubeRotation();
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+  });
+
+  document.addEventListener('touchend', () => {
+    dragging = false;
+  });
+
+  updateCubeRotation();
+}
+
 function animateAndRotate(face, fn) {
   const el = document.getElementById(face);
   const axis = faceAxis[face];
@@ -147,7 +208,10 @@ function animateAndRotate(face, fn) {
   }, 300);
 }
 
-document.addEventListener('DOMContentLoaded', setup);
+document.addEventListener('DOMContentLoaded', () => {
+  setup();
+  initMouseControls();
+});
 document.addEventListener('keydown', e => {
   switch(e.key.toUpperCase()) {
     case 'U': return animateAndRotate('U', rotateU);
