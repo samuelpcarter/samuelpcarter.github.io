@@ -123,16 +123,39 @@ function setup() {
   updateDisplay();
 }
 
+const faceTransforms = {
+  U: 'rotateX(90deg) translateZ(60px)',
+  D: 'rotateX(-90deg) translateZ(60px)',
+  F: 'translateZ(60px)',
+  B: 'rotateY(180deg) translateZ(60px)',
+  L: 'rotateY(-90deg) translateZ(60px)',
+  R: 'rotateY(90deg) translateZ(60px)'
+};
+
+const faceAxis = { U: 'Y', D: 'Y', F: 'Z', B: 'Z', L: 'X', R: 'X' };
+
+function animateAndRotate(face, fn) {
+  const el = document.getElementById(face);
+  const axis = faceAxis[face];
+  el.style.transition = 'transform 0.3s';
+  el.style.transform = faceTransforms[face] + ` rotate${axis}(90deg)`;
+  setTimeout(() => {
+    fn();
+    updateDisplay();
+    el.style.transition = '';
+    el.style.transform = faceTransforms[face];
+  }, 300);
+}
+
 document.addEventListener('DOMContentLoaded', setup);
 document.addEventListener('keydown', e => {
   switch(e.key.toUpperCase()) {
-    case 'U': rotateU(); break;
-    case 'D': rotateD(); break;
-    case 'F': rotateF(); break;
-    case 'B': rotateB(); break;
-    case 'L': rotateL(); break;
-    case 'R': rotateR(); break;
+    case 'U': return animateAndRotate('U', rotateU);
+    case 'D': return animateAndRotate('D', rotateD);
+    case 'F': return animateAndRotate('F', rotateF);
+    case 'B': return animateAndRotate('B', rotateB);
+    case 'L': return animateAndRotate('L', rotateL);
+    case 'R': return animateAndRotate('R', rotateR);
     default: return;
   }
-  updateDisplay();
 });

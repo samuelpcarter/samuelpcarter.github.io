@@ -1,29 +1,41 @@
-#cube {
-  display: grid;
-  grid-template-columns: repeat(12, 40px);
-  grid-template-rows: repeat(9, 40px);
-  gap: 2px;
-  justify-content: center;
+#scene {
+  perspective: 600px;
+  width: 240px;
+  height: 240px;
   margin: 2rem auto;
 }
+
+#cube {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: auto;
+  transform-style: preserve-3d;
+  transform: rotateX(-30deg) rotateY(45deg);
+}
+
 .face {
+  position: absolute;
+  width: 120px;
+  height: 120px;
   display: grid;
   grid-template-columns: repeat(3, 40px);
   grid-template-rows: repeat(3, 40px);
   gap: 2px;
+  transition: transform 0.3s;
 }
+
 .tile {
   width: 40px;
   height: 40px;
   border: 1px solid #333;
 }
 
-/* Layout positions for net */
-#U { grid-column: 5 / span 3; grid-row: 1 / span 3; }
-#L { grid-column: 2 / span 3; grid-row: 4 / span 3; }
-#F { grid-column: 5 / span 3; grid-row: 4 / span 3; }
-#R { grid-column: 8 / span 3; grid-row: 4 / span 3; }
-#B { grid-column: 11 / span 3; grid-row: 4 / span 3; }
-#D { grid-column: 5 / span 3; grid-row: 7 / span 3; }
+#F { transform: translateZ(60px); }
+#B { transform: rotateY(180deg) translateZ(60px); }
+#U { transform: rotateX(90deg) translateZ(60px); }
+#D { transform: rotateX(-90deg) translateZ(60px); }
+#L { transform: rotateY(-90deg) translateZ(60px); }
+#R { transform: rotateY(90deg) translateZ(60px); }
 
 .controls { text-align: center; margin-bottom: 1rem; }
