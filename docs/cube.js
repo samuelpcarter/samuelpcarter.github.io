@@ -83,6 +83,8 @@ function rotateR() {
   cube.F[8] = t0; cube.F[5] = t1; cube.F[2] = t2;
 }
 
+const rotateFuncs = { U: rotateU, D: rotateD, F: rotateF, B: rotateB, L: rotateL, R: rotateR };
+
 function updateDisplay() {
   for (const face of ['U','D','F','B','L','R']) {
     for (let i=0;i<9;i++) {
@@ -91,10 +93,29 @@ function updateDisplay() {
   }
 }
 
+function runNextMove() {
+  if (moveQueue.length === 0) { animating = false; return; }
+  animating = true;
+  const {face, inverse} = moveQueue.shift();
+  const fn = rotateFuncs[face];
+  const exec = () => {
+    if (inverse) { for (let i=0;i<3;i++) fn(); }
+    else fn();
+  };
+  animateAndRotate(face, exec, runNextMove);
+}
+
+function queueMove(face, inverse=false) {
+  moveQueue.push({face, inverse});
+  if (!animating) runNextMove();
+}
+
 function scramble() {
-  const moves = [rotateU, rotateD, rotateF, rotateB, rotateL, rotateR];
-  for (let i=0;i<20;i++) moves[Math.floor(Math.random()*moves.length)]();
-  updateDisplay();
+  const moves = ['U','D','F','B','L','R'];
+  for (let i=0;i<20;i++) {
+    const face = moves[Math.floor(Math.random()*moves.length)];
+    queueMove(face);
+  }
 }
 
 function resetCube() {
@@ -104,6 +125,8 @@ function resetCube() {
   cube.B.fill(colors.B);
   cube.L.fill(colors.L);
   cube.R.fill(colors.R);
+  moveQueue = [];
+  animating = false;
   updateDisplay();
 }
 
@@ -139,6 +162,11 @@ let rotY = 45;
 let dragging = false;
 let startX, startY;
 
+let moveQueue = [];
+let animating = false;
+let faceDrag = null;
+let faceStartX = 0;
+
 function updateCubeRotation() {
   const cubeEl = document.getElementById('cube');
   cubeEl.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
@@ -155,6 +183,14 @@ function initMouseControls() {
     cubeEl.classList.add('dragging');
   });
 
+  document.querySelectorAll('.face').forEach(f => {
+    f.addEventListener('mousedown', e => {
+      faceDrag = f.id;
+      faceStartX = e.clientX;
+      e.stopPropagation();
+    });
+  });
+
   document.addEventListener('mousemove', e => {
     if (!dragging) return;
     const dx = e.clientX - startX;
@@ -166,15 +202,29 @@ function initMouseControls() {
     startY = e.clientY;
   });
 
-  document.addEventListener('mouseup', () => {
+  document.addEventListener('mouseup', e => {
     dragging = false;
     cubeEl.classList.remove('dragging');
+    if (faceDrag) {
+      const dx = e.clientX - faceStartX;
+      if (dx > 30) queueMove(faceDrag);
+      else if (dx < -30) queueMove(faceDrag, true);
+      faceDrag = null;
+    }
   });
 
   scene.addEventListener('touchstart', e => {
     dragging = true;
     startX = e.touches[0].clientX;
     startY = e.touches[0].clientY;
+  });
+
+  document.querySelectorAll('.face').forEach(f => {
+    f.addEventListener('touchstart', e => {
+      faceDrag = f.id;
+      faceStartX = e.touches[0].clientX;
+      e.stopPropagation();
+    });
   });
 
   scene.addEventListener('touchmove', e => {
@@ -188,14 +238,20 @@ function initMouseControls() {
     startY = e.touches[0].clientY;
   });
 
-  document.addEventListener('touchend', () => {
+  document.addEventListener('touchend', e => {
     dragging = false;
+    if (faceDrag) {
+      const dx = e.changedTouches[0].clientX - faceStartX;
+      if (dx > 30) queueMove(faceDrag);
+      else if (dx < -30) queueMove(faceDrag, true);
+      faceDrag = null;
+    }
   });
 
   updateCubeRotation();
 }
 
-function animateAndRotate(face, fn) {
+function animateAndRotate(face, fn, cb) {
   const el = document.getElementById(face);
   const axis = faceAxis[face];
   el.style.transition = 'transform 0.3s';
@@ -205,6 +261,7 @@ function animateAndRotate(face, fn) {
     updateDisplay();
     el.style.transition = '';
     el.style.transform = faceTransforms[face];
+    if (cb) cb();
   }, 300);
 }
 
@@ -214,12 +271,12 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 document.addEventListener('keydown', e => {
   switch(e.key.toUpperCase()) {
-    case 'U': return animateAndRotate('U', rotateU);
-    case 'D': return animateAndRotate('D', rotateD);
-    case 'F': return animateAndRotate('F', rotateF);
-    case 'B': return animateAndRotate('B', rotateB);
-    case 'L': return animateAndRotate('L', rotateL);
-    case 'R': return animateAndRotate('R', rotateR);
+    case 'U': return queueMove('U');
+    case 'D': return queueMove('D');
+    case 'F': return queueMove('F');
+    case 'B': return queueMove('B');
+    case 'L': return queueMove('L');
+    case 'R': return queueMove('R');
     default: return;
   }
 });
