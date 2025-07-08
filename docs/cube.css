@@ -1,0 +1,29 @@
+#cube {
+  display: grid;
+  grid-template-columns: repeat(12, 40px);
+  grid-template-rows: repeat(9, 40px);
+  gap: 2px;
+  justify-content: center;
+  margin: 2rem auto;
+}
+.face {
+  display: grid;
+  grid-template-columns: repeat(3, 40px);
+  grid-template-rows: repeat(3, 40px);
+  gap: 2px;
+}
+.tile {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #333;
+}
+
+/* Layout positions for net */
+#U { grid-column: 5 / span 3; grid-row: 1 / span 3; }
+#L { grid-column: 2 / span 3; grid-row: 4 / span 3; }
+#F { grid-column: 5 / span 3; grid-row: 4 / span 3; }
+#R { grid-column: 8 / span 3; grid-row: 4 / span 3; }
+#B { grid-column: 11 / span 3; grid-row: 4 / span 3; }
+#D { grid-column: 5 / span 3; grid-row: 7 / span 3; }
+
+.controls { text-align: center; margin-bottom: 1rem; }
