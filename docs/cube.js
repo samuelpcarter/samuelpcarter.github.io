@@ -102,7 +102,7 @@ function runNextMove() {
     if (inverse) { for (let i=0;i<3;i++) fn(); }
     else fn();
   };
-  animateAndRotate(face, exec, runNextMove);
+  animateAndRotate(face, inverse ? -90 : 90, exec, runNextMove);
 }
 
 function queueMove(face, inverse=false) {
@@ -147,18 +147,20 @@ function setup() {
 }
 
 const faceTransforms = {
-  U: 'rotateX(90deg) translateZ(60px)',
-  D: 'rotateX(-90deg) translateZ(60px)',
-  F: 'translateZ(60px)',
-  B: 'rotateY(180deg) translateZ(60px)',
-  L: 'rotateY(-90deg) translateZ(60px)',
-  R: 'rotateY(90deg) translateZ(60px)'
+  U: 'rotateX(90deg) translateZ(20vmin)',
+  D: 'rotateX(-90deg) translateZ(20vmin)',
+  F: 'translateZ(20vmin)',
+  B: 'rotateY(180deg) translateZ(20vmin)',
+  L: 'rotateY(-90deg) translateZ(20vmin)',
+  R: 'rotateY(90deg) translateZ(20vmin)'
 };
 
 const faceAxis = { U: 'Y', D: 'Y', F: 'Z', B: 'Z', L: 'X', R: 'X' };
 
 let rotX = -30;
 let rotY = 45;
+let velX = 0;
+let velY = 0;
 let dragging = false;
 let startX, startY;
 
@@ -167,10 +169,20 @@ let animating = false;
 let faceDrag = null;
 let faceStartX = 0;
 const ROT_STEP = 15;
+const MOMENTUM = 0.95;
 
 function updateCubeRotation() {
   const cubeEl = document.getElementById('cube');
   cubeEl.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+}
+
+function animateCube() {
+  rotX += velX;
+  rotY += velY;
+  velX *= MOMENTUM;
+  velY *= MOMENTUM;
+  updateCubeRotation();
+  requestAnimationFrame(animateCube);
 }
 
 function initMouseControls() {
@@ -196,9 +208,8 @@ function initMouseControls() {
     if (!dragging) return;
     const dx = e.clientX - startX;
     const dy = e.clientY - startY;
-    rotY += dx * 0.4;
-    rotX -= dy * 0.4;
-    updateCubeRotation();
+    velY += dx * 0.1;
+    velX -= dy * 0.1;
     startX = e.clientX;
     startY = e.clientY;
   });
@@ -232,9 +243,8 @@ function initMouseControls() {
     if (!dragging) return;
     const dx = e.touches[0].clientX - startX;
     const dy = e.touches[0].clientY - startY;
-    rotY += dx * 0.4;
-    rotX -= dy * 0.4;
-    updateCubeRotation();
+    velY += dx * 0.1;
+    velX -= dy * 0.1;
     startX = e.touches[0].clientX;
     startY = e.touches[0].clientY;
   });
@@ -249,26 +259,41 @@ function initMouseControls() {
     }
   });
 
-  updateCubeRotation();
 }
 
-function animateAndRotate(face, fn, cb) {
+function animateAndRotate(face, targetAngle, fn, cb) {
   const el = document.getElementById(face);
   const axis = faceAxis[face];
-  el.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
-  el.style.transform = faceTransforms[face] + ` rotate${axis}(90deg)`;
-  setTimeout(() => {
-    fn();
-    updateDisplay();
-    el.style.transition = '';
-    el.style.transform = faceTransforms[face];
-    if (cb) cb();
-  }, 500);
+  let angle = 0;
+  let velocity = 0;
+  const target = targetAngle;
+  const kp = 0.2;
+  const kd = 0.1;
+  let lastError = target;
+
+  function step() {
+    const error = target - angle;
+    const derivative = error - lastError;
+    velocity += kp * error + kd * derivative;
+    angle += velocity;
+    el.style.transform = faceTransforms[face] + ` rotate${axis}(${angle}deg)`;
+    lastError = error;
+    if (Math.abs(error) < 0.5 && Math.abs(velocity) < 0.5) {
+      fn();
+      updateDisplay();
+      el.style.transform = faceTransforms[face];
+      if (cb) cb();
+    } else {
+      requestAnimationFrame(step);
+    }
+  }
+  step();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   setup();
   initMouseControls();
+  animateCube();
 });
 document.addEventListener('keydown', e => {
   const key = e.key;
@@ -282,20 +307,16 @@ document.addEventListener('keydown', e => {
   }
   switch(key) {
     case 'ArrowLeft':
-      rotY -= ROT_STEP;
-      updateCubeRotation();
+      velY -= ROT_STEP * 0.2;
       break;
     case 'ArrowRight':
-      rotY += ROT_STEP;
-      updateCubeRotation();
+      velY += ROT_STEP * 0.2;
       break;
     case 'ArrowUp':
-      rotX -= ROT_STEP;
-      updateCubeRotation();
+      velX -= ROT_STEP * 0.2;
       break;
     case 'ArrowDown':
-      rotX += ROT_STEP;
-      updateCubeRotation();
+      velX += ROT_STEP * 0.2;
       break;
     default:
       return;

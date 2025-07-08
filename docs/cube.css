@@ -1,15 +1,16 @@
+
 #scene {
-  perspective: 800px;
-  width: 240px;
-  height: 240px;
+  perspective: 1000px;
+  width: 80vw;
+  height: 80vh;
   margin: 2rem auto;
   user-select: none;
 }
 
 #cube {
   position: relative;
-  width: 120px;
-  height: 120px;
+  width: 40vmin;
+  height: 40vmin;
   margin: auto;
   transform-style: preserve-3d;
   transform: rotateX(-30deg) rotateY(45deg);
@@ -19,29 +20,29 @@
 
 .face {
   position: absolute;
-  width: 120px;
-  height: 120px;
+  width: 40vmin;
+  height: 40vmin;
   display: grid;
-  grid-template-columns: repeat(3, 40px);
-  grid-template-rows: repeat(3, 40px);
-  gap: 2px;
+  grid-template-columns: repeat(3, 13vmin);
+  grid-template-rows: repeat(3, 13vmin);
+  gap: 0.5vmin;
   transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   backface-visibility: hidden;
 }
 
 .tile {
-  width: 40px;
-  height: 40px;
+  width: 13vmin;
+  height: 13vmin;
   border: 1px solid #333;
   backface-visibility: hidden;
 }
 
-#F { transform: translateZ(60px); }
-#B { transform: rotateY(180deg) translateZ(60px); }
-#U { transform: rotateX(90deg) translateZ(60px); }
-#D { transform: rotateX(-90deg) translateZ(60px); }
-#L { transform: rotateY(-90deg) translateZ(60px); }
-#R { transform: rotateY(90deg) translateZ(60px); }
+#F { transform: translateZ(20vmin); }
+#B { transform: rotateY(180deg) translateZ(20vmin); }
+#U { transform: rotateX(90deg) translateZ(20vmin); }
+#D { transform: rotateX(-90deg) translateZ(20vmin); }
+#L { transform: rotateY(-90deg) translateZ(20vmin); }
+#R { transform: rotateY(90deg) translateZ(20vmin); }
 
 .controls { text-align: center; margin-bottom: 1rem; }
 
