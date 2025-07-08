@@ -3,36 +3,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Sam Carter • Portfolio</title>
+  <title>Rubik's Cube Simulator</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="cube.css">
 </head>
 <body>
-  <nav>
-    <a class="logo" href="index.html">Sam Carter</a>
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="projects.html">Projects</a>
-  </nav>
-
   <header>
-    <h1>Welcome</h1>
-    <p>I'm Sam Carter, a full‑stack developer passionate about building clean and efficient web applications.</p>
+    <h1>Rubik's Cube Simulator</h1>
+    <p>Press U, D, F, B, L, R keys to rotate faces or use the buttons below.</p>
   </header>
-
-  <main>
-    <section>
-      <h2>Featured Project</h2>
-      <p>Take a look at my latest work, <a href="https://github.com/samuelpcarter/BTC-Treasury-Tickers" target="_blank">BTC Treasury Tickers</a>, an experiment in scraping public Bitcoin holdings.</p>
-    </section>
-
-    <section>
-      <h2>Contact</h2>
-      <p>Feel free to reach out at <a href="mailto:samcart37@gmail.com">samcart37@gmail.com</a>.</p>
-    </section>
-  </main>
-
-  <footer>
-    © 2025 Sam Carter
-  </footer>
+  <div class="controls">
+    <button onclick="scramble()">Scramble</button>
+    <button onclick="resetCube()">Reset</button>
+  </div>
+  <div id="cube"></div>
+  <script src="cube.js"></script>
 </body>
 </html>
