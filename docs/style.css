@@ -8,6 +8,7 @@ body {
   line-height: 1.6;
   background: #111;
   color: #eee;
+  font-size: 1.2rem;
 }
 
 nav {
@@ -31,6 +32,14 @@ nav a.logo {
 header {
   text-align: center;
   padding: 3rem 1rem;
+}
+
+p {
+  font-size: 1.1em;
+}
+
+h1 {
+  font-size: 3rem;
 }
 
 main {
