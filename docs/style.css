@@ -1,15 +1,15 @@
 body {
   margin: 2rem;
   font-family: sans-serif;
-  background: #fff;
-  color: #000;
+  background: #222;
+  color: #eee;
 }
 nav {
   margin-bottom: 2rem;
 }
 nav a {
   margin-right: 1rem;
-  color: #000;
+  color: #eee;
   text-decoration: none;
 }
 nav a.logo {
