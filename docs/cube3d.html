@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Rubik's Cube Demo</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { margin:0; overflow:hidden; background:#1e1e1e; font-family: Arial, sans-serif; }
+    canvas { display:block; }
+    #sidebar {
+      position:absolute;
+      top:20px; left:20px;
+      width:250px;
+      background:rgba(255,255,255,0.95);
+      padding:20px;
+      border-radius:10px;
+      box-shadow:0 0 15px rgba(0,0,0,0.5);
+      z-index:10;
+    }
+    #sidebar button, #sidebar input {
+      display:block;
+      width:100%;
+      padding:12px;
+      margin:10px 0;
+      font-size:16px;
+      cursor:pointer;
+      background:#2196F3;
+      color:white;
+      border:none;
+      border-radius:5px;
+      transition:transform 0.2s, background 0.3s;
+    }
+    #sidebar button:hover, #sidebar input:hover {
+      background:#1976D2;
+      transform:scale(1.05);
+    }
+    #status { text-align:center; color:#333; margin-top:10px; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a class="logo" href="index.html">Sam Carter</a>
+    <a href="about.html">About</a>
+    <a href="projects.html">Projects</a>
+    <a href="resume.html">Resume</a>
+    <a href="bitcoin.html">Bitcoin</a>
+    <a href="cube3d.html">Cube</a>
+  </nav>
+  <div id="sidebar">
+    <input type="number" id="cubeSize" min="2" value="3" placeholder="Cube Size (e.g., 3)">
+    <button id="startBtn">Start</button>
+    <button id="scrambleBtn">Scramble</button>
+    <button id="solveBtn">Solve</button>
+    <div id="status">Press F/U/R/L/D/B + number (0 to size-1) to rotate layers</div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="cube3d.js"></script>
+</body>
+</html>
