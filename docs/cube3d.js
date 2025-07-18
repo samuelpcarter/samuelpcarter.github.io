@@ -6,6 +6,12 @@ const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerH
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
+Object.assign(renderer.domElement.style, {
+  position: 'fixed',
+  top: '0',
+  left: '0',
+  zIndex: '0'
+});
 
 camera.position.set(5, 5, 5);
 camera.lookAt(0, 0, 0);
@@ -103,13 +109,19 @@ function startLayerRotation(center, axis) {
       (Math.abs(axis.z) === 1 && Math.abs(pos.z - center.z) < threshold)
     ) {
       cubelet.userData.offset = pos.clone().sub(center);
+      cubelet.userData.startQuat = cubelet.quaternion.clone();
       rotationData.cubelets.push(cubelet);
     }
   });
 }
 
-function animateRotation() {
-  if (!isRotatingLayer) return;
+let rotationCallback = null;
+function animateRotation(cb) {
+  if (cb) rotationCallback = cb;
+  if (!isRotatingLayer) {
+    if (rotationCallback) { const fn = rotationCallback; rotationCallback = null; fn(); }
+    return;
+  }
   const targetAngle = Math.PI / 2;
   rotationData.angle = Math.min(rotationData.angle + 0.1, targetAngle);
   const t = rotationData.angle / targetAngle;
@@ -117,19 +129,23 @@ function animateRotation() {
   const quat = new THREE.Quaternion().setFromAxisAngle(rotationData.axis, easedT * Math.PI / 2);
   rotationData.cubelets.forEach(c => {
     c.position.copy(c.userData.offset.clone().applyQuaternion(quat).add(rotationData.center));
+    c.quaternion.copy(quat.clone().multiply(c.userData.startQuat));
   });
   if (rotationData.angle >= targetAngle) {
+    const finalQuat = new THREE.Quaternion().setFromAxisAngle(rotationData.axis, Math.PI / 2);
     rotationData.cubelets.forEach(c => {
       c.position.set(
         Math.round(c.position.x * 2) / 2,
         Math.round(c.position.y * 2) / 2,
         Math.round(c.position.z * 2) / 2
       );
+      c.quaternion.copy(finalQuat.clone().multiply(c.userData.startQuat));
     });
     isRotatingLayer = false;
     rotationData = { axis: new THREE.Vector3(), angle: 0, center: new THREE.Vector3(), cubelets: [] };
+    if (rotationCallback) { const fn = rotationCallback; rotationCallback = null; fn(); }
   } else {
-    requestAnimationFrame(animateRotation);
+    requestAnimationFrame(() => animateRotation());
   }
 }
 
@@ -161,13 +177,17 @@ function scramble() {
   if (isRotatingLayer) return;
   const moves = 20;
   const axes = Object.values(keyMap);
-  for (let i = 0; i < moves; i++) {
+  let i = 0;
+  function doMove() {
+    if (i >= moves) return;
     const axis = axes[Math.floor(Math.random() * 6)];
     const layer = Math.floor(Math.random() * cubeSize) - Math.floor(cubeSize / 2);
     const center = axis.clone().multiplyScalar(layer);
     startLayerRotation(center, axis);
-    animateRotation();
+    i++;
+    animateRotation(() => doMove());
   }
+  doMove();
 }
 
 function solve() {

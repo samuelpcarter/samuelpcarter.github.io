@@ -29,6 +29,8 @@ body {
 }
 
 nav {
+  position: relative;
+  z-index: 5;
   background: linear-gradient(90deg, var(--navy), var(--primary));
   color: #fff;
   padding: 1rem;
