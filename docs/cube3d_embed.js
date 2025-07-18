@@ -72,6 +72,7 @@ let previousMousePosition = { x: 0, y: 0 };
 const targetQuaternion = new THREE.Quaternion();
 let isRotatingLayer = false;
 let rotationData = { axis: new THREE.Vector3(), angle: 0, center: new THREE.Vector3(), cubelets: [] };
+let moveHistory = [];
 
 const keyMap = {
   f: new THREE.Vector3(0, 0, 1),
@@ -159,22 +160,25 @@ function animateRotation(cb) {
   }
 }
 
-renderer.domElement.addEventListener('mousedown', e => {
+renderer.domElement.style.touchAction = 'none';
+renderer.domElement.addEventListener('pointerdown', e => {
   if (isRotatingLayer) return;
   isDragging = true;
   previousMousePosition = { x: e.clientX, y: e.clientY };
+  e.preventDefault();
 });
 
-document.addEventListener('mousemove', e => {
+document.addEventListener('pointermove', e => {
   if (isDragging && !isRotatingLayer) {
     const delta = { x: -(e.clientX - previousMousePosition.x), y: -(e.clientY - previousMousePosition.y) };
     const quat = new THREE.Quaternion().setFromEuler(new THREE.Euler(delta.y * 0.002, delta.x * 0.002, 0, 'XYZ'));
     targetQuaternion.multiply(quat);
     previousMousePosition = { x: e.clientX, y: e.clientY };
+    e.preventDefault();
   }
 });
 
-document.addEventListener('mouseup', () => { isDragging = false; });
+document.addEventListener('pointerup', () => { isDragging = false; });
 
 function animate() {
   requestAnimationFrame(animate);
@@ -187,6 +191,7 @@ function scramble() {
   if (isRotatingLayer) return;
   const moves = 20;
   const axes = Object.values(keyMap);
+  moveHistory = [];
   let i = 0;
   function doMove() {
     if (i >= moves) return;
@@ -194,6 +199,7 @@ function scramble() {
     const layer = Math.floor(Math.random() * cubeSize) - (cubeSize - 1) / 2;
     const center = axis.clone().multiplyScalar(layer);
     startLayerRotation(center, axis);
+    moveHistory.push({ axis: axis.clone(), center: center.clone() });
     i++;
     animateRotation(() => doMove());
   }
@@ -201,10 +207,18 @@ function scramble() {
 }
 
 function solve() {
-  if (isRotatingLayer) return;
-  initCube(cubeSize);
+  if (isRotatingLayer || moveHistory.length === 0) return;
+  let i = moveHistory.length - 1;
+  function undo() {
+    if (i < 0) { moveHistory = []; return; }
+    const move = moveHistory[i];
+    const axis = move.axis.clone().negate();
+    startLayerRotation(move.center, axis);
+    i--;
+    animateRotation(() => undo());
+  }
+  undo();
   targetQuaternion.set(0, 0, 0, 1);
-  cubeGroup.quaternion.set(0, 0, 0, 1);
 }
 
 document.getElementById('scramble').addEventListener('click', scramble);
