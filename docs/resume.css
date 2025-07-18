@@ -2,3 +2,10 @@ body {
   background: #222;
   animation: none;
 }
+
+.hero .contact-info {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.3rem;
+  display: inline-block;
+}

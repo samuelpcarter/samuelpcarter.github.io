@@ -41,6 +41,14 @@ const scrambleHistory = [];
 let runningSequence = null;
 let executedMoves = [];
 
+function runWhenReady(fn) {
+  if (!isRotatingLayer) {
+    fn();
+  } else {
+    rotationCallback = fn;
+  }
+}
+
 function initCube(size) {
   cubelets.length = 0;
   cubeGroup.clear();
@@ -200,12 +208,6 @@ function runSequence(moves, onDone) {
 }
 
 function scramble() {
-  if (isRotatingLayer || runningSequence) return;
-  const scrambleBtn = document.getElementById('scramble');
-  const solveBtn = document.getElementById('solve');
-  scrambleBtn.textContent = 'Scrambling...';
-  scrambleBtn.disabled = true;
-  solveBtn.disabled = true;
   const axes = Object.values(keyMap);
   const moves = [];
   for (let i = 0; i < 20; i++) {
@@ -216,33 +218,21 @@ function scramble() {
   }
   scrambleHistory.length = 0;
   scrambleHistory.push(...moves);
-  runSequence(moves, () => {
-    scrambleBtn.textContent = 'Scramble';
-    scrambleBtn.disabled = false;
-    solveBtn.disabled = false;
-  });
+  runningSequence = null;
+  executedMoves = [];
+  runWhenReady(() => runSequence(moves));
 }
 
 function solve() {
-  if (isRotatingLayer) return;
-  const solveBtn = document.getElementById('solve');
-  const scrambleBtn = document.getElementById('scramble');
-  solveBtn.textContent = 'Solving...';
-  solveBtn.disabled = true;
-  scrambleBtn.disabled = true;
   let moves;
   if (runningSequence) {
     moves = executedMoves.slice().reverse().map(m => ({ axis: m.axis.clone().negate(), center: m.center }));
-    runningSequence = null;
   } else {
     moves = scrambleHistory.slice().reverse().map(m => ({ axis: m.axis.clone().negate(), center: m.center }));
   }
-  runSequence(moves, () => {
-    scrambleHistory.length = 0;
-    solveBtn.textContent = 'Solve';
-    solveBtn.disabled = false;
-    scrambleBtn.disabled = false;
-  });
+  runningSequence = null;
+  executedMoves = [];
+  runWhenReady(() => runSequence(moves, () => { scrambleHistory.length = 0; }));
 }
 
 document.getElementById('scramble').addEventListener('click', scramble);
