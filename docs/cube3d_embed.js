@@ -40,6 +40,7 @@ scene.add(cubeGroup);
 const scrambleHistory = [];
 let runningSequence = null;
 let executedMoves = [];
+let cancelSequence = false;
 
 function runWhenReady(fn) {
   if (!isRotatingLayer) {
@@ -159,7 +160,7 @@ function animateRotation(cb) {
     rotationData = { axis: new THREE.Vector3(), angle: 0, center: new THREE.Vector3(), cubelets: [] };
     if (rotationCallback) { const fn = rotationCallback; rotationCallback = null; fn(); }
   } else {
-    requestAnimationFrame(() => animateRotation());
+    setTimeout(() => animateRotation(), 16);
   }
 }
 
@@ -182,9 +183,9 @@ function animateRotation(cb) {
 // document.addEventListener('mouseup', () => { isDragging = false; });
 
 function animate() {
-  requestAnimationFrame(animate);
   cubeGroup.quaternion.slerp(targetQuaternion, 0.1);
   renderer.render(scene, camera);
+  setTimeout(animate, 16);
 }
 animate();
 
@@ -192,6 +193,10 @@ function runSequence(moves, onDone) {
   runningSequence = moves.slice();
   executedMoves = [];
   function next() {
+    if (cancelSequence) {
+      cancelSequence = false;
+      runningSequence = [];
+    }
     if (runningSequence.length === 0) {
       runningSequence = null;
       if (onDone) onDone();
@@ -208,35 +213,53 @@ function runSequence(moves, onDone) {
 }
 
 function scramble() {
+  cancelSequence = true;
   const axes = Object.values(keyMap);
   const moves = [];
+  let lastAxis = null;
+  let lastLayer = null;
   for (let i = 0; i < 20; i++) {
-    const axis = axes[Math.floor(Math.random() * 6)];
-    const layer = Math.floor(Math.random() * cubeSize) - (cubeSize - 1) / 2;
+    let axis, layer;
+    do {
+      axis = axes[Math.floor(Math.random() * 6)];
+      layer = Math.floor(Math.random() * cubeSize) - (cubeSize - 1) / 2;
+      if (Math.random() < 0.3) layer = 0; // middle layer turns sometimes
+    } while (lastAxis && axis.equals(lastAxis) && (layer === lastLayer || layer === -lastLayer));
     const center = axis.clone().multiplyScalar(layer);
     moves.push({ axis, center });
+    lastAxis = axis;
+    lastLayer = layer;
   }
   scrambleHistory.length = 0;
   scrambleHistory.push(...moves);
-  runningSequence = null;
   executedMoves = [];
   runWhenReady(() => runSequence(moves));
 }
 
 function solve() {
+  cancelSequence = true;
   let moves;
   if (runningSequence) {
     moves = executedMoves.slice().reverse().map(m => ({ axis: m.axis.clone().negate(), center: m.center }));
   } else {
     moves = scrambleHistory.slice().reverse().map(m => ({ axis: m.axis.clone().negate(), center: m.center }));
   }
-  runningSequence = null;
   executedMoves = [];
   runWhenReady(() => runSequence(moves, () => { scrambleHistory.length = 0; }));
 }
 
+function resetCube() {
+  cancelSequence = true;
+  executedMoves = [];
+  scrambleHistory.length = 0;
+  initCube(cubeSize);
+  targetQuaternion.set(0, 0, 0, 1);
+  cubeGroup.quaternion.set(0, 0, 0, 1);
+}
+
 document.getElementById('scramble').addEventListener('click', scramble);
 document.getElementById('solve').addEventListener('click', solve);
+document.getElementById('reset').addEventListener('click', resetCube);
 
 window.addEventListener('resize', () => {
   const w = container.clientWidth;
