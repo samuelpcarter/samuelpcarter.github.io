@@ -1,7 +1,7 @@
 const phrases = [
-  'Machine technician',
-  'AI explorer',
-  '3D printing specialist'
+  'Machine tech & robotics mentor',
+  'AI trailblazer',
+  '3D printing expert'
 ];
 let i = 0;
 let j = 0;
@@ -23,6 +23,7 @@ function type() {
     element.textContent = full.substring(0, j - 1);
     j--;
     if (j === 0) {
+      element.innerHTML = '&nbsp;';
       isDeleting = false;
       i = (i + 1) % phrases.length;
       return setTimeout(type, 500);
