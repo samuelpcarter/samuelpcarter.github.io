@@ -3,7 +3,7 @@
 
 const scene = new THREE.Scene();
 const container = document.getElementById('scene');
-const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+const renderer = new THREE.WebGLRenderer({ antialias: true });
 const width = container.clientWidth;
 const height = container.clientHeight;
 const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
@@ -11,7 +11,6 @@ renderer.setSize(width, height);
 container.appendChild(renderer.domElement);
 renderer.domElement.style.width = '100%';
 renderer.domElement.style.height = '100%';
-renderer.setClearColor(0x000000, 0);
 
 camera.position.set(5, 5, 5);
 camera.lookAt(0, 0, 0);
@@ -72,7 +71,6 @@ let previousMousePosition = { x: 0, y: 0 };
 const targetQuaternion = new THREE.Quaternion();
 let isRotatingLayer = false;
 let rotationData = { axis: new THREE.Vector3(), angle: 0, center: new THREE.Vector3(), cubelets: [] };
-let moveHistory = [];
 
 const keyMap = {
   f: new THREE.Vector3(0, 0, 1),
@@ -99,14 +97,7 @@ function onKeyDown(event) {
   }
 }
 
-let keyboardEnabled = false;
-function enableKeyboard() {
-  if (!keyboardEnabled) {
-    document.addEventListener('keydown', onKeyDown);
-    keyboardEnabled = true;
-  }
-}
-renderer.domElement.addEventListener('pointerdown', enableKeyboard);
+document.addEventListener('keydown', onKeyDown);
 
 function startLayerRotation(center, axis) {
   isRotatingLayer = true;
@@ -160,25 +151,22 @@ function animateRotation(cb) {
   }
 }
 
-renderer.domElement.style.touchAction = 'none';
-renderer.domElement.addEventListener('pointerdown', e => {
+renderer.domElement.addEventListener('mousedown', e => {
   if (isRotatingLayer) return;
   isDragging = true;
   previousMousePosition = { x: e.clientX, y: e.clientY };
-  e.preventDefault();
 });
 
-document.addEventListener('pointermove', e => {
+document.addEventListener('mousemove', e => {
   if (isDragging && !isRotatingLayer) {
     const delta = { x: -(e.clientX - previousMousePosition.x), y: -(e.clientY - previousMousePosition.y) };
     const quat = new THREE.Quaternion().setFromEuler(new THREE.Euler(delta.y * 0.002, delta.x * 0.002, 0, 'XYZ'));
     targetQuaternion.multiply(quat);
     previousMousePosition = { x: e.clientX, y: e.clientY };
-    e.preventDefault();
   }
 });
 
-document.addEventListener('pointerup', () => { isDragging = false; });
+document.addEventListener('mouseup', () => { isDragging = false; });
 
 function animate() {
   requestAnimationFrame(animate);
@@ -191,7 +179,6 @@ function scramble() {
   if (isRotatingLayer) return;
   const moves = 20;
   const axes = Object.values(keyMap);
-  moveHistory = [];
   let i = 0;
   function doMove() {
     if (i >= moves) return;
@@ -199,7 +186,6 @@ function scramble() {
     const layer = Math.floor(Math.random() * cubeSize) - (cubeSize - 1) / 2;
     const center = axis.clone().multiplyScalar(layer);
     startLayerRotation(center, axis);
-    moveHistory.push({ axis: axis.clone(), center: center.clone() });
     i++;
     animateRotation(() => doMove());
   }
@@ -207,22 +193,16 @@ function scramble() {
 }
 
 function solve() {
-  if (isRotatingLayer || moveHistory.length === 0) return;
-  let i = moveHistory.length - 1;
-  function undo() {
-    if (i < 0) { moveHistory = []; return; }
-    const move = moveHistory[i];
-    const axis = move.axis.clone().negate();
-    startLayerRotation(move.center, axis);
-    i--;
-    animateRotation(() => undo());
-  }
-  undo();
+  if (isRotatingLayer) return;
+  initCube(cubeSize);
   targetQuaternion.set(0, 0, 0, 1);
+  cubeGroup.quaternion.set(0, 0, 0, 1);
 }
 
-document.getElementById('scramble').addEventListener('click', scramble);
-document.getElementById('solve').addEventListener('click', solve);
+const scrambleBtn = document.getElementById('scramble');
+if (scrambleBtn) scrambleBtn.addEventListener('click', scramble);
+const solveBtn = document.getElementById('solve');
+if (solveBtn) solveBtn.addEventListener('click', solve);
 
 window.addEventListener('resize', () => {
   const w = container.clientWidth;
