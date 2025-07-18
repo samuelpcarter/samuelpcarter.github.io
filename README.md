@@ -1,5 +1,5 @@
-# Bitcoin Price Viewer
+# Portfolio and Demos
 
-This repository contains a single-page website that displays the Bitcoin price chart using the TradingView widget.
+This site includes a simple portfolio with an interactive Rubik's Cube, a Bitcoin price viewer, and placeholder pages for future content.
 
-Open `docs/index.html` in your browser to view the chart. The page fills the entire screen and works on both desktop and mobile devices.
+Open `docs/index.html` to try the cube and explore the navigation links. The original Bitcoin chart is now available at `docs/bitcoin.html`.
