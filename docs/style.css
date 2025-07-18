@@ -171,6 +171,11 @@ section {
   font-weight: 300;
 }
 
+#typewriter {
+  display: inline-block;
+  min-height: 2rem;
+}
+
 .cursor {
   display: inline-block;
   width: 2px;
