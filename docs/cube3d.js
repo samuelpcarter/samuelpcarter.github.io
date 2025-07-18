@@ -41,17 +41,20 @@ scene.add(cubeGroup);
 function initCube(size) {
   cubelets.length = 0;
   cubeGroup.clear();
-  const halfSize = Math.floor(size / 2);
-  for (let x = -halfSize; x <= halfSize; x++) {
-    for (let y = -halfSize; y <= halfSize; y++) {
-      for (let z = -halfSize; z <= halfSize; z++) {
+  const offset = (size - 1) / 2;
+  for (let xi = 0; xi < size; xi++) {
+    const x = xi - offset;
+    for (let yi = 0; yi < size; yi++) {
+      const y = yi - offset;
+      for (let zi = 0; zi < size; zi++) {
+        const z = zi - offset;
         const materials = [
-          x === halfSize ? colors[5] : hiddenMaterial,
-          x === -halfSize ? colors[4] : hiddenMaterial,
-          y === halfSize ? colors[2] : hiddenMaterial,
-          y === -halfSize ? colors[3] : hiddenMaterial,
-          z === halfSize ? colors[0] : hiddenMaterial,
-          z === -halfSize ? colors[1] : hiddenMaterial
+          x === offset ? colors[5] : hiddenMaterial,
+          x === -offset ? colors[4] : hiddenMaterial,
+          y === offset ? colors[2] : hiddenMaterial,
+          y === -offset ? colors[3] : hiddenMaterial,
+          z === offset ? colors[0] : hiddenMaterial,
+          z === -offset ? colors[1] : hiddenMaterial
         ];
         const cubelet = new THREE.Mesh(geometry, materials);
         cubelet.position.set(x, y, z);
@@ -88,7 +91,7 @@ function onKeyDown(event) {
     const base = key.replace(/\d+/g, '');
     const axis = keyMap[base];
     if (axis) {
-      const center = axis.clone().multiplyScalar(number - Math.floor(cubeSize / 2));
+      const center = axis.clone().multiplyScalar(number - (cubeSize - 1) / 2);
       startLayerRotation(center, axis);
       animateRotation();
     }
@@ -181,7 +184,7 @@ function scramble() {
   function doMove() {
     if (i >= moves) return;
     const axis = axes[Math.floor(Math.random() * 6)];
-    const layer = Math.floor(Math.random() * cubeSize) - Math.floor(cubeSize / 2);
+    const layer = Math.floor(Math.random() * cubeSize) - (cubeSize - 1) / 2;
     const center = axis.clone().multiplyScalar(layer);
     startLayerRotation(center, axis);
     i++;
