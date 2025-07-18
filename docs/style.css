@@ -13,7 +13,7 @@
 :root {
   --primary: #1a1a2e;
   --navy: #16213e;
-  --accent: #f472b6;
+  --accent: #e63946;
   --accent2: #60a5fa;
 }
 
@@ -21,7 +21,7 @@ body {
   margin: 0;
   font-family: 'IBM Plex Sans', sans-serif;
   line-height: 1.6;
-  background: linear-gradient(45deg, #1e3a8a, #9333ea, #ec4899, #14b8a6);
+  background: linear-gradient(45deg, #1e3a8a, #2563eb, #ef4444, #eab308);
   background-size: 400% 400%;
   color: #eee;
   animation: gradient 20s ease infinite;
@@ -65,6 +65,10 @@ nav a.logo {
   margin-right: auto;
 }
 
+body.noscroll {
+  overflow: hidden;
+}
+
 header {
   text-align: center;
   padding: 4rem 1rem;
@@ -104,6 +108,14 @@ h2 {
   flex-wrap: wrap;
   gap: 2rem;
   align-items: center;
+}
+
+.intro {
+  justify-content: space-between;
+}
+
+.intro #scene {
+  margin-left: auto;
 }
 
 .split .avatar {
@@ -198,4 +210,18 @@ footer {
   padding: 1rem;
   background: var(--navy);
   color: #bbb;
+}
+
+.footer-nav {
+  margin-bottom: 0.5rem;
+}
+
+.footer-nav a {
+  color: #bbb;
+  margin: 0 0.5rem;
+  text-decoration: none;
+}
+
+.footer-nav a:hover {
+  color: #fff;
 }

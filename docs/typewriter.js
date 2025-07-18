@@ -1,7 +1,7 @@
 const phrases = [
-  'AI researcher',
-  'Builder',
-  'Explorer of Generative Frontiers'
+  'Machine technician',
+  'AI explorer',
+  '3D printing specialist'
 ];
 let i = 0;
 let j = 0;

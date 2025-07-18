@@ -3,7 +3,7 @@
 
 const scene = new THREE.Scene();
 const container = document.getElementById('scene');
-const renderer = new THREE.WebGLRenderer({ antialias: true });
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 const width = container.clientWidth;
 const height = container.clientHeight;
 const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
@@ -11,6 +11,7 @@ renderer.setSize(width, height);
 container.appendChild(renderer.domElement);
 renderer.domElement.style.width = '100%';
 renderer.domElement.style.height = '100%';
+renderer.setClearColor(0x000000, 0);
 
 camera.position.set(5, 5, 5);
 camera.lookAt(0, 0, 0);
@@ -97,7 +98,14 @@ function onKeyDown(event) {
   }
 }
 
-document.addEventListener('keydown', onKeyDown);
+let keyboardEnabled = false;
+function enableKeyboard() {
+  if (!keyboardEnabled) {
+    document.addEventListener('keydown', onKeyDown);
+    keyboardEnabled = true;
+  }
+}
+renderer.domElement.addEventListener('pointerdown', enableKeyboard);
 
 function startLayerRotation(center, axis) {
   isRotatingLayer = true;
