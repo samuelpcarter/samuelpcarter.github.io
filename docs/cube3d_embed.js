@@ -98,14 +98,7 @@ function onKeyDown(event) {
   }
 }
 
-let keyboardEnabled = false;
-function enableKeyboard() {
-  if (!keyboardEnabled) {
-    document.addEventListener('keydown', onKeyDown);
-    keyboardEnabled = true;
-  }
-}
-renderer.domElement.addEventListener('pointerdown', enableKeyboard);
+// Disable manual cube manipulation
 
 function startLayerRotation(center, axis) {
   isRotatingLayer = true;
@@ -159,22 +152,23 @@ function animateRotation(cb) {
   }
 }
 
-renderer.domElement.addEventListener('mousedown', e => {
-  if (isRotatingLayer) return;
-  isDragging = true;
-  previousMousePosition = { x: e.clientX, y: e.clientY };
-});
+// Disable drag rotation
+// renderer.domElement.addEventListener('mousedown', e => {
+//   if (isRotatingLayer) return;
+//   isDragging = true;
+//   previousMousePosition = { x: e.clientX, y: e.clientY };
+// });
 
-document.addEventListener('mousemove', e => {
-  if (isDragging && !isRotatingLayer) {
-    const delta = { x: -(e.clientX - previousMousePosition.x), y: -(e.clientY - previousMousePosition.y) };
-    const quat = new THREE.Quaternion().setFromEuler(new THREE.Euler(delta.y * 0.002, delta.x * 0.002, 0, 'XYZ'));
-    targetQuaternion.multiply(quat);
-    previousMousePosition = { x: e.clientX, y: e.clientY };
-  }
-});
+// document.addEventListener('mousemove', e => {
+//   if (isDragging && !isRotatingLayer) {
+//     const delta = { x: -(e.clientX - previousMousePosition.x), y: -(e.clientY - previousMousePosition.y) };
+//     const quat = new THREE.Quaternion().setFromEuler(new THREE.Euler(delta.y * 0.002, delta.x * 0.002, 0, 'XYZ'));
+//     targetQuaternion.multiply(quat);
+//     previousMousePosition = { x: e.clientX, y: e.clientY };
+//   }
+// });
 
-document.addEventListener('mouseup', () => { isDragging = false; });
+// document.addEventListener('mouseup', () => { isDragging = false; });
 
 function animate() {
   requestAnimationFrame(animate);
