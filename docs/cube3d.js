@@ -180,13 +180,20 @@ function scramble() {
   if (isRotatingLayer) return;
   const moves = 20;
   const axes = Object.values(keyMap);
+  let lastAxis = null;
+  let lastLayer = null;
   let i = 0;
   function doMove() {
     if (i >= moves) return;
-    const axis = axes[Math.floor(Math.random() * 6)];
-    const layer = Math.floor(Math.random() * cubeSize) - (cubeSize - 1) / 2;
+    let axis, layer;
+    do {
+      axis = axes[Math.floor(Math.random() * 6)];
+      layer = Math.floor(Math.random() * cubeSize) - (cubeSize - 1) / 2;
+    } while ((lastAxis && axis.equals(lastAxis) && (layer === lastLayer || layer === -lastLayer)));
     const center = axis.clone().multiplyScalar(layer);
     startLayerRotation(center, axis);
+    lastAxis = axis.clone();
+    lastLayer = layer;
     i++;
     animateRotation(() => doMove());
   }
