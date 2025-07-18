@@ -166,9 +166,15 @@ function queueMove(face, inverse=false) {
 
 function scramble() {
   const faces = Object.keys(moveDefs);
+  const opposite = {U:'D', D:'U', F:'B', B:'F', L:'R', R:'L'};
+  let last = null;
   for (let i=0;i<20;i++) {
-    const f = faces[Math.floor(Math.random()*faces.length)];
+    let f;
+    do {
+      f = faces[Math.floor(Math.random()*faces.length)];
+    } while (f === last || opposite[f] === last);
     queueMove(f);
+    last = f;
   }
 }
 

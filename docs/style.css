@@ -29,13 +29,15 @@ body {
 }
 
 nav {
-  position: relative;
+  position: sticky;
+  top: 0;
   z-index: 5;
   background: linear-gradient(90deg, var(--navy), var(--primary));
   color: #fff;
   padding: 1rem;
   display: flex;
   gap: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.4);
 }
 
 nav a {
