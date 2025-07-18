@@ -197,17 +197,3 @@ footer {
   background: var(--navy);
   color: #bbb;
 }
-
-@keyframes drive {
-  0% { left: -200px; }
-  100% { left: calc(100% + 200px); }
-}
-
-.car {
-  position: fixed;
-  bottom: 10px;
-  width: 120px;
-  animation: drive 5s linear infinite;
-  pointer-events: none;
-  z-index: 1000;
-}
