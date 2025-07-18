@@ -37,6 +37,9 @@ const cubelets = [];
 const geometry = new THREE.BoxGeometry(0.95, 0.95, 0.95);
 const cubeGroup = new THREE.Group();
 scene.add(cubeGroup);
+const scrambleHistory = [];
+let runningSequence = null;
+let executedMoves = [];
 
 function initCube(size) {
   cubelets.length = 0;
@@ -177,28 +180,50 @@ function animate() {
 }
 animate();
 
+function runSequence(moves, onDone) {
+  runningSequence = moves.slice();
+  executedMoves = [];
+  function next() {
+    if (runningSequence.length === 0) {
+      runningSequence = null;
+      if (onDone) onDone();
+      return;
+    }
+    const move = runningSequence.shift();
+    startLayerRotation(move.center, move.axis);
+    animateRotation(() => {
+      executedMoves.push(move);
+      next();
+    });
+  }
+  next();
+}
+
 function scramble() {
-  if (isRotatingLayer) return;
-  const moves = 20;
+  if (isRotatingLayer || runningSequence) return;
   const axes = Object.values(keyMap);
-  let i = 0;
-  function doMove() {
-    if (i >= moves) return;
+  const moves = [];
+  for (let i = 0; i < 20; i++) {
     const axis = axes[Math.floor(Math.random() * 6)];
     const layer = Math.floor(Math.random() * cubeSize) - (cubeSize - 1) / 2;
     const center = axis.clone().multiplyScalar(layer);
-    startLayerRotation(center, axis);
-    i++;
-    animateRotation(() => doMove());
+    moves.push({ axis, center });
   }
-  doMove();
+  scrambleHistory.length = 0;
+  scrambleHistory.push(...moves);
+  runSequence(moves);
 }
 
 function solve() {
   if (isRotatingLayer) return;
-  initCube(cubeSize);
-  targetQuaternion.set(0, 0, 0, 1);
-  cubeGroup.quaternion.set(0, 0, 0, 1);
+  let moves;
+  if (runningSequence) {
+    moves = executedMoves.slice().reverse().map(m => ({ axis: m.axis.clone().negate(), center: m.center }));
+    runningSequence = null;
+  } else {
+    moves = scrambleHistory.slice().reverse().map(m => ({ axis: m.axis.clone().negate(), center: m.center }));
+  }
+  runSequence(moves, () => { scrambleHistory.length = 0; });
 }
 
 document.getElementById('scramble').addEventListener('click', scramble);
