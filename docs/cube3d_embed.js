@@ -22,14 +22,8 @@ const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
 directionalLight.position.set(5, 5, 5).normalize();
 scene.add(directionalLight);
 
-const colors = [
-  new THREE.MeshPhongMaterial({ color: 0xff4d4d, shininess: 50 }), // front
-  new THREE.MeshPhongMaterial({ color: 0x4d79ff, shininess: 50 }), // back
-  new THREE.MeshPhongMaterial({ color: 0xffffff, shininess: 50 }), // up
-  new THREE.MeshPhongMaterial({ color: 0xffea00, shininess: 50 }), // down
-  new THREE.MeshPhongMaterial({ color: 0x4dff4d, shininess: 50 }), // left
-  new THREE.MeshPhongMaterial({ color: 0xff9933, shininess: 50 })  // right
-];
+const faceColors = [0x222222, 0x252525, 0x282828, 0x2b2b2b, 0x2e2e2e, 0x313131];
+const colors = faceColors.map(c => new THREE.MeshPhongMaterial({ color: c, shininess: 40 }));
 const hiddenMaterial = new THREE.MeshPhongMaterial({ color: 0x2f2f2f, shininess: 50 });
 
 let cubeSize = 3;
@@ -164,23 +158,22 @@ function animateRotation(cb) {
   }
 }
 
-// Disable drag rotation
-// renderer.domElement.addEventListener('mousedown', e => {
-//   if (isRotatingLayer) return;
-//   isDragging = true;
-//   previousMousePosition = { x: e.clientX, y: e.clientY };
-// });
+renderer.domElement.addEventListener('mousedown', e => {
+  if (isRotatingLayer) return;
+  isDragging = true;
+  previousMousePosition = { x: e.clientX, y: e.clientY };
+});
 
-// document.addEventListener('mousemove', e => {
-//   if (isDragging && !isRotatingLayer) {
-//     const delta = { x: -(e.clientX - previousMousePosition.x), y: -(e.clientY - previousMousePosition.y) };
-//     const quat = new THREE.Quaternion().setFromEuler(new THREE.Euler(delta.y * 0.002, delta.x * 0.002, 0, 'XYZ'));
-//     targetQuaternion.multiply(quat);
-//     previousMousePosition = { x: e.clientX, y: e.clientY };
-//   }
-// });
+document.addEventListener('mousemove', e => {
+  if (isDragging && !isRotatingLayer) {
+    const delta = { x: -(e.clientX - previousMousePosition.x), y: -(e.clientY - previousMousePosition.y) };
+    const quat = new THREE.Quaternion().setFromEuler(new THREE.Euler(delta.y * 0.002, delta.x * 0.002, 0, 'XYZ'));
+    targetQuaternion.multiply(quat);
+    previousMousePosition = { x: e.clientX, y: e.clientY };
+  }
+});
 
-// document.addEventListener('mouseup', () => { isDragging = false; });
+document.addEventListener('mouseup', () => { isDragging = false; });
 
 function animate() {
   cubeGroup.quaternion.slerp(targetQuaternion, 0.1);
