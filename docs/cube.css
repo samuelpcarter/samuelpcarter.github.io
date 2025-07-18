@@ -8,8 +8,8 @@
 
 #cube {
   position: relative;
-  width: 120px;
-  height: 120px;
+  width: 126px;
+  height: 126px;
   margin: auto;
   transform-style: preserve-3d;
   transform: rotateX(-30deg) rotateY(45deg);
@@ -17,34 +17,28 @@
   cursor: grab;
 }
 
-.face {
+.cubelet {
   position: absolute;
-  width: 120px;
-  height: 120px;
-  display: grid;
-  grid-template-columns: repeat(3, 40px);
-  grid-template-rows: repeat(3, 40px);
-  gap: 2px;
-  transition: transform 0.3s;
-  backface-visibility: hidden;
+  width: 40px;
+  height: 40px;
+  transform-style: preserve-3d;
 }
 
-.tile {
+.sticker {
+  position: absolute;
   width: 40px;
   height: 40px;
   border: 1px solid #333;
   backface-visibility: hidden;
 }
 
-#F { transform: translateZ(60px); }
-#B { transform: rotateY(180deg) translateZ(60px); }
-#U { transform: rotateX(90deg) translateZ(60px); }
-#D { transform: rotateX(-90deg) translateZ(60px); }
-#L { transform: rotateY(-90deg) translateZ(60px); }
-#R { transform: rotateY(90deg) translateZ(60px); }
+.sticker.F { transform: translateZ(20px); }
+.sticker.B { transform: rotateY(180deg) translateZ(20px); }
+.sticker.U { transform: rotateX(90deg) translateZ(20px); }
+.sticker.D { transform: rotateX(-90deg) translateZ(20px); }
+.sticker.L { transform: rotateY(-90deg) translateZ(20px); }
+.sticker.R { transform: rotateY(90deg) translateZ(20px); }
 
 .controls { text-align: center; margin-bottom: 1rem; }
 
-#cube.dragging {
-  cursor: grabbing;
-}
+#cube.dragging { cursor: grabbing; }

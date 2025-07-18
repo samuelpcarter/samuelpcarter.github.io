@@ -1,3 +1,7 @@
+const SIZE = 40;
+const SPACING = 42; // cubelet spacing
+const ROT_DURATION = 300;
+
 const colors = {
   U: 'white',
   D: 'yellow',
@@ -7,102 +11,152 @@ const colors = {
   R: 'red'
 };
 
-const cube = {
-  U: Array(9).fill(colors.U),
-  D: Array(9).fill(colors.D),
-  F: Array(9).fill(colors.F),
-  B: Array(9).fill(colors.B),
-  L: Array(9).fill(colors.L),
-  R: Array(9).fill(colors.R)
-};
-
-function rotateFaceCW(face) {
-  const [a,b,c,d,e,f,g,h,i] = cube[face];
-  cube[face][0] = g;
-  cube[face][1] = d;
-  cube[face][2] = a;
-  cube[face][3] = h;
-  cube[face][4] = e;
-  cube[face][5] = b;
-  cube[face][6] = i;
-  cube[face][7] = f;
-  cube[face][8] = c;
+function identityMatrix() {
+  return [
+    [1,0,0],
+    [0,1,0],
+    [0,0,1]
+  ];
 }
 
-function rotateU() {
-  rotateFaceCW('U');
-  const tmp = cube.F.slice(0,3);
-  cube.F[0] = cube.R[0]; cube.F[1] = cube.R[1]; cube.F[2] = cube.R[2];
-  cube.R[0] = cube.B[0]; cube.R[1] = cube.B[1]; cube.R[2] = cube.B[2];
-  cube.B[0] = cube.L[0]; cube.B[1] = cube.L[1]; cube.B[2] = cube.L[2];
-  cube.L[0] = tmp[0]; cube.L[1] = tmp[1]; cube.L[2] = tmp[2];
+function multiplyMatrix(A, B) {
+  const R = [];
+  for (let i=0;i<3;i++) {
+    R[i] = [];
+    for (let j=0;j<3;j++) {
+      R[i][j] = A[i][0]*B[0][j] + A[i][1]*B[1][j] + A[i][2]*B[2][j];
+    }
+  }
+  return R;
 }
 
-function rotateD() {
-  rotateFaceCW('D');
-  const tmp = cube.F.slice(6,9);
-  cube.F[6] = cube.L[6]; cube.F[7] = cube.L[7]; cube.F[8] = cube.L[8];
-  cube.L[6] = cube.B[6]; cube.L[7] = cube.B[7]; cube.L[8] = cube.B[8];
-  cube.B[6] = cube.R[6]; cube.B[7] = cube.R[7]; cube.B[8] = cube.R[8];
-  cube.R[6] = tmp[0]; cube.R[7] = tmp[1]; cube.R[8] = tmp[2];
+function rotationMatrix(axis, dir) {
+  const s = dir;
+  if (axis === 'x') {
+    return [
+      [1,0,0],
+      [0,0,-s],
+      [0,s,0]
+    ];
+  } else if (axis === 'y') {
+    return [
+      [0,0,s],
+      [0,1,0],
+      [-s,0,0]
+    ];
+  } else { // z
+    return [
+      [0,-s,0],
+      [s,0,0],
+      [0,0,1]
+    ];
+  }
 }
 
-function rotateF() {
-  rotateFaceCW('F');
-  const t0 = cube.U[6], t1 = cube.U[7], t2 = cube.U[8];
-  cube.U[6] = cube.L[8]; cube.U[7] = cube.L[5]; cube.U[8] = cube.L[2];
-  cube.L[8] = cube.D[2]; cube.L[5] = cube.D[1]; cube.L[2] = cube.D[0];
-  cube.D[2] = cube.R[0]; cube.D[1] = cube.R[3]; cube.D[0] = cube.R[6];
-  cube.R[0] = t0; cube.R[3] = t1; cube.R[6] = t2;
+function rotateCoord([x,y,z], axis, dir) {
+  if (axis === 'x') {
+    return [x, dir===1 ? -z : z, dir===1 ? y : -y];
+  } else if (axis === 'y') {
+    return [dir===1 ? z : -z, y, dir===1 ? -x : x];
+  } else { // z
+    return [dir===1 ? -y : y, dir===1 ? x : -x, z];
+  }
 }
 
-function rotateB() {
-  rotateFaceCW('B');
-  const t0 = cube.U[0], t1 = cube.U[1], t2 = cube.U[2];
-  cube.U[0] = cube.R[2]; cube.U[1] = cube.R[5]; cube.U[2] = cube.R[8];
-  cube.R[2] = cube.D[8]; cube.R[5] = cube.D[7]; cube.R[8] = cube.D[6];
-  cube.D[8] = cube.L[6]; cube.D[7] = cube.L[3]; cube.D[6] = cube.L[0];
-  cube.L[6] = t0; cube.L[3] = t1; cube.L[0] = t2;
+function matrixToCss(m, x, y, z) {
+  const tx = x * SPACING;
+  const ty = -y * SPACING;
+  const tz = z * SPACING;
+  const arr = [
+    m[0][0], m[1][0], m[2][0], 0,
+    m[0][1], m[1][1], m[2][1], 0,
+    m[0][2], m[1][2], m[2][2], 0,
+    tx, ty, tz, 1
+  ];
+  return 'matrix3d(' + arr.join(',') + ')';
 }
 
-function rotateL() {
-  rotateFaceCW('L');
-  const t0 = cube.U[0], t1 = cube.U[3], t2 = cube.U[6];
-  cube.U[0] = cube.F[0]; cube.U[3] = cube.F[3]; cube.U[6] = cube.F[6];
-  cube.F[0] = cube.D[0]; cube.F[3] = cube.D[3]; cube.F[6] = cube.D[6];
-  cube.D[0] = cube.B[8]; cube.D[3] = cube.B[5]; cube.D[6] = cube.B[2];
-  cube.B[8] = t0; cube.B[5] = t1; cube.B[2] = t2;
+function createSticker(face) {
+  const s = document.createElement('div');
+  s.className = 'sticker ' + face;
+  s.style.background = colors[face];
+  return s;
 }
 
-function rotateR() {
-  rotateFaceCW('R');
-  const t0 = cube.U[2], t1 = cube.U[5], t2 = cube.U[8];
-  cube.U[2] = cube.B[6]; cube.U[5] = cube.B[3]; cube.U[8] = cube.B[0];
-  cube.B[6] = cube.D[8]; cube.B[3] = cube.D[5]; cube.B[0] = cube.D[2];
-  cube.D[8] = cube.F[8]; cube.D[5] = cube.F[5]; cube.D[2] = cube.F[2];
-  cube.F[8] = t0; cube.F[5] = t1; cube.F[2] = t2;
+class Cubelet {
+  constructor(x, y, z) {
+    this.x = x; this.y = y; this.z = z;
+    this.matrix = identityMatrix();
+    this.el = document.createElement('div');
+    this.el.className = 'cubelet';
+    if (y === 1) this.el.appendChild(createSticker('U'));
+    if (y === -1) this.el.appendChild(createSticker('D'));
+    if (z === 1) this.el.appendChild(createSticker('F'));
+    if (z === -1) this.el.appendChild(createSticker('B'));
+    if (x === -1) this.el.appendChild(createSticker('L'));
+    if (x === 1) this.el.appendChild(createSticker('R'));
+    this.update();
+  }
+  update() {
+    this.el.style.transform = matrixToCss(this.matrix, this.x, this.y, this.z);
+  }
 }
 
-const rotateFuncs = { U: rotateU, D: rotateD, F: rotateF, B: rotateB, L: rotateL, R: rotateR };
+const cubelets = [];
 
-function updateDisplay() {
-  for (const face of ['U','D','F','B','L','R']) {
-    for (let i=0;i<9;i++) {
-      document.querySelector(`#${face} .t${i}`).style.background = cube[face][i];
+function setupCube() {
+  const cubeEl = document.getElementById('cube');
+  cubeEl.innerHTML = '';
+  cubelets.length = 0;
+  for (let x=-1;x<=1;x++) {
+    for (let y=-1;y<=1;y++) {
+      for (let z=-1;z<=1;z++) {
+        const c = new Cubelet(x,y,z);
+        cubelets.push(c);
+        cubeEl.appendChild(c.el);
+      }
     }
   }
 }
+
+function rotateLayer(axis, layer, dir, cb) {
+  const rot = rotationMatrix(axis, dir);
+  const targets = cubelets.filter(c => c[axis] === layer);
+  targets.forEach(c => {
+    c.el.style.transition = `transform ${ROT_DURATION}ms`;
+  });
+  // trigger layout so transition applies
+  void document.body.offsetWidth;
+  targets.forEach(c => {
+    c.matrix = multiplyMatrix(rot, c.matrix);
+    const coord = rotateCoord([c.x,c.y,c.z], axis, dir);
+    c.x = coord[0]; c.y = coord[1]; c.z = coord[2];
+    c.update();
+  });
+  setTimeout(() => {
+    targets.forEach(c => c.el.style.transition = '');
+    if (cb) cb();
+  }, ROT_DURATION);
+}
+
+const moveDefs = {
+  U: {axis:'y', layer:1, dir:1},
+  D: {axis:'y', layer:-1, dir:-1},
+  F: {axis:'z', layer:1, dir:-1},
+  B: {axis:'z', layer:-1, dir:1},
+  R: {axis:'x', layer:1, dir:-1},
+  L: {axis:'x', layer:-1, dir:1}
+};
+
+let moveQueue = [];
+let animating = false;
 
 function runNextMove() {
   if (moveQueue.length === 0) { animating = false; return; }
   animating = true;
   const {face, inverse} = moveQueue.shift();
-  const fn = rotateFuncs[face];
-  const exec = () => {
-    if (inverse) { for (let i=0;i<3;i++) fn(); }
-    else fn();
-  };
-  animateAndRotate(face, exec, runNextMove);
+  const def = moveDefs[face];
+  rotateLayer(def.axis, def.layer, inverse ? -def.dir : def.dir, runNextMove);
 }
 
 function queueMove(face, inverse=false) {
@@ -111,61 +165,21 @@ function queueMove(face, inverse=false) {
 }
 
 function scramble() {
-  const moves = ['U','D','F','B','L','R'];
+  const faces = Object.keys(moveDefs);
   for (let i=0;i<20;i++) {
-    const face = moves[Math.floor(Math.random()*moves.length)];
-    queueMove(face);
+    const f = faces[Math.floor(Math.random()*faces.length)];
+    queueMove(f);
   }
 }
 
 function resetCube() {
-  cube.U.fill(colors.U);
-  cube.D.fill(colors.D);
-  cube.F.fill(colors.F);
-  cube.B.fill(colors.B);
-  cube.L.fill(colors.L);
-  cube.R.fill(colors.R);
-  moveQueue = [];
-  animating = false;
-  updateDisplay();
+  setupCube();
 }
-
-function setup() {
-  const container = document.getElementById('cube');
-  ['U','L','F','R','B','D'].forEach(face => {
-    const f = document.createElement('div');
-    f.id = face;
-    f.className = 'face';
-    for(let i=0;i<9;i++) {
-      const sq = document.createElement('div');
-      sq.className = `tile t${i}`;
-      f.appendChild(sq);
-    }
-    container.appendChild(f);
-  });
-  updateDisplay();
-}
-
-const faceTransforms = {
-  U: 'rotateX(90deg) translateZ(60px)',
-  D: 'rotateX(-90deg) translateZ(60px)',
-  F: 'translateZ(60px)',
-  B: 'rotateY(180deg) translateZ(60px)',
-  L: 'rotateY(-90deg) translateZ(60px)',
-  R: 'rotateY(90deg) translateZ(60px)'
-};
-
-const faceAxis = { U: 'Y', D: 'Y', F: 'Z', B: 'Z', L: 'X', R: 'X' };
 
 let rotX = -30;
 let rotY = 45;
 let dragging = false;
 let startX, startY;
-
-let moveQueue = [];
-let animating = false;
-let faceDrag = null;
-let faceStartX = 0;
 
 function updateCubeRotation() {
   const cubeEl = document.getElementById('cube');
@@ -175,22 +189,9 @@ function updateCubeRotation() {
 function initMouseControls() {
   const scene = document.getElementById('scene');
   const cubeEl = document.getElementById('cube');
-
   scene.addEventListener('mousedown', e => {
-    dragging = true;
-    startX = e.clientX;
-    startY = e.clientY;
-    cubeEl.classList.add('dragging');
+    dragging = true; startX = e.clientX; startY = e.clientY; cubeEl.classList.add('dragging');
   });
-
-  document.querySelectorAll('.face').forEach(f => {
-    f.addEventListener('mousedown', e => {
-      faceDrag = f.id;
-      faceStartX = e.clientX;
-      e.stopPropagation();
-    });
-  });
-
   document.addEventListener('mousemove', e => {
     if (!dragging) return;
     const dx = e.clientX - startX;
@@ -198,85 +199,19 @@ function initMouseControls() {
     rotY += dx * 0.4;
     rotX -= dy * 0.4;
     updateCubeRotation();
-    startX = e.clientX;
-    startY = e.clientY;
+    startX = e.clientX; startY = e.clientY;
   });
-
-  document.addEventListener('mouseup', e => {
-    dragging = false;
-    cubeEl.classList.remove('dragging');
-    if (faceDrag) {
-      const dx = e.clientX - faceStartX;
-      if (dx > 30) queueMove(faceDrag);
-      else if (dx < -30) queueMove(faceDrag, true);
-      faceDrag = null;
-    }
-  });
-
-  scene.addEventListener('touchstart', e => {
-    dragging = true;
-    startX = e.touches[0].clientX;
-    startY = e.touches[0].clientY;
-  });
-
-  document.querySelectorAll('.face').forEach(f => {
-    f.addEventListener('touchstart', e => {
-      faceDrag = f.id;
-      faceStartX = e.touches[0].clientX;
-      e.stopPropagation();
-    });
-  });
-
-  scene.addEventListener('touchmove', e => {
-    if (!dragging) return;
-    const dx = e.touches[0].clientX - startX;
-    const dy = e.touches[0].clientY - startY;
-    rotY += dx * 0.4;
-    rotX -= dy * 0.4;
-    updateCubeRotation();
-    startX = e.touches[0].clientX;
-    startY = e.touches[0].clientY;
-  });
-
-  document.addEventListener('touchend', e => {
-    dragging = false;
-    if (faceDrag) {
-      const dx = e.changedTouches[0].clientX - faceStartX;
-      if (dx > 30) queueMove(faceDrag);
-      else if (dx < -30) queueMove(faceDrag, true);
-      faceDrag = null;
-    }
-  });
-
-  updateCubeRotation();
-}
-
-function animateAndRotate(face, fn, cb) {
-  const el = document.getElementById(face);
-  const axis = faceAxis[face];
-  el.style.transition = 'transform 0.3s';
-  el.style.transform = faceTransforms[face] + ` rotate${axis}(90deg)`;
-  setTimeout(() => {
-    fn();
-    updateDisplay();
-    el.style.transition = '';
-    el.style.transform = faceTransforms[face];
-    if (cb) cb();
-  }, 300);
+  document.addEventListener('mouseup', () => { dragging = false; cubeEl.classList.remove('dragging'); });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  setup();
+  setupCube();
   initMouseControls();
+  document.getElementById('scramble').addEventListener('click', scramble);
+  document.getElementById('solve').addEventListener('click', resetCube);
 });
+
 document.addEventListener('keydown', e => {
-  switch(e.key.toUpperCase()) {
-    case 'U': return queueMove('U');
-    case 'D': return queueMove('D');
-    case 'F': return queueMove('F');
-    case 'B': return queueMove('B');
-    case 'L': return queueMove('L');
-    case 'R': return queueMove('R');
-    default: return;
-  }
+  const k = e.key.toUpperCase();
+  if (moveDefs[k]) queueMove(k);
 });
