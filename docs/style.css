@@ -199,14 +199,17 @@ section {
 .btn {
   padding: 0.6rem 1rem;
   border-radius: 9999px;
-  border: 1px solid var(--accent);
-  color: var(--accent);
+  border: none;
+  color: #fff;
+  font-weight: 500;
+  background: linear-gradient(45deg, var(--accent), var(--accent2));
   text-decoration: none;
-  transition: background 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+  transition: transform 0.2s ease;
 }
 
 .btn:hover {
-  background: rgba(96, 165, 250, 0.2);
+  transform: scale(1.05);
 }
 
 footer {
