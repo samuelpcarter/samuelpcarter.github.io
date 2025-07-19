@@ -26,6 +26,9 @@ body {
   color: #eee;
   animation: gradient 20s ease infinite;
   font-size: 1.2rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 nav {
@@ -125,6 +128,15 @@ h2 {
   padding: 1rem 0;
 }
 
+.logos {
+  margin-top: 1rem;
+}
+
+.school-logo {
+  height: 40px;
+  margin-right: 0.5rem;
+}
+
 .badge {
   white-space: nowrap;
   padding: 0.3rem 0.8rem;
@@ -156,6 +168,7 @@ main {
   max-width: 900px;
   margin: auto;
   padding: 1rem;
+  flex: 1;
 }
 
 section {
