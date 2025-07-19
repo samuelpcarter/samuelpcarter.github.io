@@ -4,13 +4,8 @@
 const scene = new THREE.Scene();
 const container = document.getElementById('scene');
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-let width = container.clientWidth;
-let height = container.clientHeight;
-// Fallback if styles haven't loaded yet
-if (!width || !height) {
-  width = 320;
-  height = 320;
-}
+const width = container.clientWidth;
+const height = container.clientHeight;
 const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
 renderer.setSize(width, height);
 container.appendChild(renderer.domElement);
@@ -27,16 +22,14 @@ const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
 directionalLight.position.set(5, 5, 5).normalize();
 scene.add(directionalLight);
 
-// Classic bright Rubik's cube colors
-const faceColors = [
-  0xff4d4d, // front - red
-  0x4d79ff, // back - blue
-  0xffffff, // up - white
-  0xffea00, // down - yellow
-  0x4dff4d, // left - green
-  0xff9933  // right - orange
+const colors = [
+  new THREE.MeshPhongMaterial({ color: 0xff4d4d, shininess: 50 }), // front
+  new THREE.MeshPhongMaterial({ color: 0x4d79ff, shininess: 50 }), // back
+  new THREE.MeshPhongMaterial({ color: 0xffffff, shininess: 50 }), // up
+  new THREE.MeshPhongMaterial({ color: 0xffea00, shininess: 50 }), // down
+  new THREE.MeshPhongMaterial({ color: 0x4dff4d, shininess: 50 }), // left
+  new THREE.MeshPhongMaterial({ color: 0xff9933, shininess: 50 })  // right
 ];
-const colors = faceColors.map(c => new THREE.MeshPhongMaterial({ color: c, shininess: 40 }));
 const hiddenMaterial = new THREE.MeshPhongMaterial({ color: 0x2f2f2f, shininess: 50 });
 
 let cubeSize = 3;
