@@ -22,7 +22,15 @@ const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
 directionalLight.position.set(5, 5, 5).normalize();
 scene.add(directionalLight);
 
-const faceColors = [0x222222, 0x252525, 0x282828, 0x2b2b2b, 0x2e2e2e, 0x313131];
+// Classic bright Rubik's cube colors
+const faceColors = [
+  0xff4d4d, // front - red
+  0x4d79ff, // back - blue
+  0xffffff, // up - white
+  0xffea00, // down - yellow
+  0x4dff4d, // left - green
+  0xff9933  // right - orange
+];
 const colors = faceColors.map(c => new THREE.MeshPhongMaterial({ color: c, shininess: 40 }));
 const hiddenMaterial = new THREE.MeshPhongMaterial({ color: 0x2f2f2f, shininess: 50 });
 
