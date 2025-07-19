@@ -1,10 +1,9 @@
 const basePhrases = [
-  'Machine tech & robotics mentor',
-  'AI trailblazer',
-  '3D printing expert',
-  'Coding fanatic',
+  '3D printing specialist',
   'Hardware hacker',
-  'Relentless problem solver'
+  'Coding fanatic',
+  'Creative maker',
+  'Lifelong learner'
 ];
 
 function shuffle(arr) {
