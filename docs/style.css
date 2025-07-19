@@ -113,9 +113,6 @@ h2 {
   justify-content: space-between;
 }
 
-.intro #scene {
-  margin-left: auto;
-}
 
 .split .avatar {
   flex: 0 0 150px;
@@ -191,28 +188,6 @@ section {
   50.01%, 100% { opacity: 0; }
 }
 
-.buttons {
-  margin-top: 1.5rem;
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-}
-
-.btn {
-  padding: 0.6rem 1rem;
-  border-radius: 9999px;
-  border: none;
-  color: #fff;
-  font-weight: 500;
-  background: linear-gradient(45deg, var(--accent), var(--accent2));
-  text-decoration: none;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.4);
-  transition: transform 0.2s ease;
-}
-
-.btn:hover {
-  transform: scale(1.05);
-}
 
 footer {
   text-align: center;
