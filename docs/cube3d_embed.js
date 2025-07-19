@@ -4,8 +4,13 @@
 const scene = new THREE.Scene();
 const container = document.getElementById('scene');
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-const width = container.clientWidth;
-const height = container.clientHeight;
+let width = container.clientWidth;
+let height = container.clientHeight;
+// Fallback if styles haven't loaded yet
+if (!width || !height) {
+  width = 320;
+  height = 320;
+}
 const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
 renderer.setSize(width, height);
 container.appendChild(renderer.domElement);
