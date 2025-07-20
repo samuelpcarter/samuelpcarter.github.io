@@ -1,6 +1,23 @@
 body {
   background: #222;
   animation: none;
+  font-size: 1rem;
+}
+
+h2 {
+  margin-top: 1.5rem;
+  font-size: 1.4rem;
+}
+
+h3 {
+  margin: 0.8rem 0 0.3rem;
+  font-size: 1.1rem;
+}
+
+.years {
+  font-weight: 400;
+  color: #aaa;
+  margin-left: 0.3rem;
 }
 
 .hero .contact-info {
