@@ -230,3 +230,32 @@ footer {
 .footer-nav a:hover {
   color: #fff;
 }
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.prompt-card {
+  background: rgba(255,255,255,0.05);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.prompt-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 15px rgba(0,0,0,0.3);
+}
+
+.prompt-text {
+  font-style: italic;
+}
+
+.prompt-output {
+  display: none;
+  margin-top: 0.5rem;
+  color: var(--accent2);
+}
+
