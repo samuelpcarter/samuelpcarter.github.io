@@ -1,5 +1,5 @@
-# Prompt Store
+# AI Prompt Gallery
 
-A simple static site showcasing purchasable AI prompts. Each prompt includes an example output to preview what it can do. All prompts are priced at $2.
+A minimal static page with a few example prompts and outputs.
 
-Open `docs/index.html` to view the catalog. The page uses a small script in `docs/prompts.js` to toggle example outputs and `docs/year.js` to automatically update the footer year.
+Open `docs/index.html` in your browser to see the gallery.
