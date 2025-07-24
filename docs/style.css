@@ -48,3 +48,21 @@ body {
   border-radius: 4px;
   cursor: pointer;
 }
+
+body.dark {
+  background: linear-gradient(to right, #1e293b, #0f172a);
+  color: #f9fafb;
+}
+
+body.dark .prompt-card {
+  background: #334155;
+  color: #f9fafb;
+}
+
+body.dark .prompt-output {
+  color: #34d399;
+}
+
+body.dark .reveal-button {
+  background: #34d399;
+}
