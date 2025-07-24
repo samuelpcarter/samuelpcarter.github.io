@@ -1,5 +1,5 @@
 # AI Prompt Gallery
 
-A minimal static page with a few example prompts and outputs.
+A simple static page showcasing AI prompt ideas. Each example card now lets you reveal the output with a button for a more interactive experience.
 
-Open `index.html` in your browser to see the gallery.
+Open `index.html` in your browser to explore the gallery.

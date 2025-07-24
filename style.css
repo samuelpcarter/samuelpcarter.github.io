@@ -1,6 +1,50 @@
-body{font-family:sans-serif;background:#fafafa;margin:0;padding:0;text-align:center;}
-.gallery{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;padding:1rem;}
-.prompt-card{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,0.1);padding:1rem;width:320px;}
-.prompt-card img{width:100%;border-radius:4px;}
-.prompt-text{font-style:italic;}
-.prompt-output{color:#10b981;margin-top:.5rem;}
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to right, #f9fafb, #e0f7fa);
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  padding: 1rem;
+}
+.prompt-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  width: 320px;
+  position: relative;
+  transition: transform 0.2s;
+}
+.prompt-card:hover {
+  transform: translateY(-5px);
+}
+.prompt-card img {
+  width: 100%;
+  border-radius: 4px;
+}
+.prompt-text {
+  font-style: italic;
+}
+.prompt-output {
+  color: #10b981;
+  margin-top: 0.5rem;
+  display: none;
+}
+.prompt-output.show {
+  display: block;
+}
+.reveal-button {
+  margin-top: 0.5rem;
+  background: #10b981;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
