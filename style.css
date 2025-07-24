@@ -1,0 +1,6 @@
+body{font-family:sans-serif;background:#fafafa;margin:0;padding:0;text-align:center;}
+.gallery{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;padding:1rem;}
+.prompt-card{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,0.1);padding:1rem;width:320px;}
+.prompt-card img{width:100%;border-radius:4px;}
+.prompt-text{font-style:italic;}
+.prompt-output{color:#10b981;margin-top:.5rem;}
