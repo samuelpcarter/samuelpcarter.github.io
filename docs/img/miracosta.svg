@@ -1,5 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60">
-  <rect width="200" height="60" rx="8" fill="#004b8d"/>
-  <path d="M0 45 Q50 20 100 45 T200 45" fill="none" stroke="#fff" stroke-width="5"/>
-  <text x="100" y="38" font-size="24" font-family="Arial, sans-serif" text-anchor="middle" fill="#fff">MiraCosta</text>
-</svg>
