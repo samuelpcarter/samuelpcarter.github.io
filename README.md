@@ -1,7 +1,5 @@
-# Portfolio and Demos
+# Prompt Store
 
-This site includes a simple portfolio, a Bitcoin price viewer, and placeholder pages for future content.
+A simple static site showcasing purchasable AI prompts. Each prompt includes an example output to preview what it can do. All prompts are priced at $2.
 
-Footers now display the current year automatically using a small JavaScript helper in `docs/year.js`.
-
-Open `docs/index.html` to explore the navigation links. The original Bitcoin chart is now available at `docs/bitcoin.html`.
+Open `docs/index.html` to view the catalog. The page uses a small script in `docs/prompts.js` to toggle example outputs and `docs/year.js` to automatically update the footer year.
