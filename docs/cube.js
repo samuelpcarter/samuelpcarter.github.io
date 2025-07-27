@@ -270,7 +270,31 @@ document.addEventListener('DOMContentLoaded', () => {
   initMouseControls();
 });
 document.addEventListener('keydown', e => {
-  switch(e.key.toUpperCase()) {
+  const key = e.key;
+  switch(key) {
+    case 'ArrowUp':
+      e.preventDefault();
+      rotX -= 10;
+      updateCubeRotation();
+      return;
+    case 'ArrowDown':
+      e.preventDefault();
+      rotX += 10;
+      updateCubeRotation();
+      return;
+    case 'ArrowLeft':
+      e.preventDefault();
+      rotY -= 10;
+      updateCubeRotation();
+      return;
+    case 'ArrowRight':
+      e.preventDefault();
+      rotY += 10;
+      updateCubeRotation();
+      return;
+  }
+
+  switch(key.toUpperCase()) {
     case 'U': return queueMove('U');
     case 'D': return queueMove('D');
     case 'F': return queueMove('F');
