@@ -1,5 +1,5 @@
-# AI Prompt Gallery
+# Portfolio and Demos
 
-A simple static page showcasing AI prompt ideas. Each example card now lets you reveal the output with a button for a more interactive experience.
+This site includes a simple portfolio with an interactive Rubik's Cube, a Bitcoin price viewer, and placeholder pages for future content.
 
-Open `index.html` in your browser to explore the gallery.
+Open `docs/index.html` to try the cube and explore the navigation links. The original Bitcoin chart is now available at `docs/bitcoin.html`.
