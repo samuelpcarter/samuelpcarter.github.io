@@ -166,6 +166,7 @@ let moveQueue = [];
 let animating = false;
 let faceDrag = null;
 let faceStartX = 0;
+let suppressClick = false;
 
 function updateCubeRotation() {
   const cubeEl = document.getElementById('cube');
@@ -175,6 +176,7 @@ function updateCubeRotation() {
 function initMouseControls() {
   const scene = document.getElementById('scene');
   const cubeEl = document.getElementById('cube');
+  scene.addEventListener('contextmenu', e => e.preventDefault());
 
   scene.addEventListener('mousedown', e => {
     dragging = true;
@@ -189,6 +191,11 @@ function initMouseControls() {
       faceStartX = e.clientX;
       e.stopPropagation();
     });
+    f.addEventListener('click', e => {
+      if (suppressClick) { suppressClick = false; return; }
+      queueMove(f.id, e.shiftKey || e.button === 2);
+    });
+    f.addEventListener('contextmenu', e => e.preventDefault());
   });
 
   document.addEventListener('mousemove', e => {
@@ -207,8 +214,8 @@ function initMouseControls() {
     cubeEl.classList.remove('dragging');
     if (faceDrag) {
       const dx = e.clientX - faceStartX;
-      if (dx > 30) queueMove(faceDrag);
-      else if (dx < -30) queueMove(faceDrag, true);
+      if (dx > 30) { queueMove(faceDrag); suppressClick = true; }
+      else if (dx < -30) { queueMove(faceDrag, true); suppressClick = true; }
       faceDrag = null;
     }
   });
@@ -239,11 +246,19 @@ function initMouseControls() {
   });
 
   document.addEventListener('touchend', e => {
+    e.preventDefault();
     dragging = false;
     if (faceDrag) {
       const dx = e.changedTouches[0].clientX - faceStartX;
-      if (dx > 30) queueMove(faceDrag);
-      else if (dx < -30) queueMove(faceDrag, true);
+      if (Math.abs(dx) < 10) {
+        queueMove(faceDrag);
+      } else if (dx > 30) {
+        queueMove(faceDrag);
+        suppressClick = true;
+      } else if (dx < -30) {
+        queueMove(faceDrag, true);
+        suppressClick = true;
+      }
       faceDrag = null;
     }
   });
@@ -268,6 +283,10 @@ function animateAndRotate(face, fn, cb) {
 document.addEventListener('DOMContentLoaded', () => {
   setup();
   initMouseControls();
+  const scrambleBtn = document.getElementById('scramble-btn');
+  if (scrambleBtn) scrambleBtn.addEventListener('click', scramble);
+  const resetBtn = document.getElementById('reset-btn');
+  if (resetBtn) resetBtn.addEventListener('click', resetCube);
 });
 document.addEventListener('keydown', e => {
   const key = e.key;
