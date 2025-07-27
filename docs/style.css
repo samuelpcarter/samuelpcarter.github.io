@@ -197,3 +197,9 @@ footer {
   background: var(--navy);
   color: #bbb;
 }
+
+.hint {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #ddd;
+}
