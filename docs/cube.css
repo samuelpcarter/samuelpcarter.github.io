@@ -44,6 +44,17 @@
 #R { transform: rotateY(90deg) translateZ(60px); }
 
 .controls { text-align: center; margin-bottom: 1rem; }
+.controls button {
+  margin: 0 0.25rem;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid #666;
+  background: #222;
+  color: #fff;
+  cursor: pointer;
+}
+.controls button:hover {
+  background: #333;
+}
 
 #cube.dragging {
   cursor: grabbing;
