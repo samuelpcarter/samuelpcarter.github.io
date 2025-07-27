@@ -111,6 +111,8 @@ function queueMove(face, inverse=false) {
 }
 
 function scramble() {
+  if (animating) return;
+  resetCube();
   const moves = ['U','D','F','B','L','R'];
   for (let i=0;i<20;i++) {
     const face = moves[Math.floor(Math.random()*moves.length)];
