@@ -1,23 +1,30 @@
 # Dictation Notes Tool
 
-This project provides a simple Python script to capture speech from the microphone and convert it into bullet-point notes. It is designed as a starting point for building a digital assistant that helps workers record observations during walkarounds.
+This tool records speech from a microphone or audio file and outputs concise bullet-point notes. It can optionally use the OpenAI API to summarize the captured text.
 
 ## Requirements
 - Python 3.12+
 - `SpeechRecognition` package
-- A working microphone
+- (Optional) `openai` package for AI summarization
+- A working microphone if recording live
 
 Install the dependencies:
 
 ```bash
-pip install SpeechRecognition
+pip install SpeechRecognition openai
 ```
 
 ## Usage
-Run the script and speak into your microphone. Press `Ctrl+C` to stop recording when finished. The script will output bullet points based on the recognized speech.
+To start recording from the microphone and save notes to a timestamped file:
 
 ```bash
 python3 bullet_notes.py
 ```
 
-This is a minimal prototype and can be extended with more advanced summarization or integration with other tools.
+You can also transcribe an existing audio file and specify the output file:
+
+```bash
+python3 bullet_notes.py --input-file recording.wav --output notes.txt
+```
+
+If the environment variable `OPENAI_API_KEY` is set, the script will send the transcript to the OpenAI API to create cleaner bullet points. Without the key, it will simply split sentences into bullet points.
