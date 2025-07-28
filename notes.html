@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Private Notes</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; max-width: 800px; margin: auto; }
+        textarea { width: 100%; height: 400px; }
+    </style>
+</head>
+<body>
+    <h1>Private Notes</h1>
+    <textarea id="notes" placeholder="Type your notes here..."></textarea>
+    <script>
+        const textarea = document.getElementById('notes');
+        // Load saved notes from localStorage
+        textarea.value = localStorage.getItem('notes') || '';
+        // Save notes on every input
+        textarea.addEventListener('input', () => {
+            localStorage.setItem('notes', textarea.value);
+        });
+    </script>
+</body>
+</html>
