@@ -28,3 +28,6 @@ python3 bullet_notes.py --input-file recording.wav --output notes.txt
 ```
 
 If the environment variable `OPENAI_API_KEY` is set, the script will send the transcript to the OpenAI API to create cleaner bullet points. Without the key, it will simply split sentences into bullet points.
+
+## Website
+This repository also hosts a simple website focused on my Bitcoin journey. Open `index.html` in a browser to see a short resume and a link to `notes.html`, where personal notes are saved locally in your browser.
