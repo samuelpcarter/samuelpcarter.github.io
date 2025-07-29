@@ -1,0 +1,61 @@
+#scene {
+  perspective: 800px;
+  width: 240px;
+  height: 240px;
+  margin: 2rem auto;
+  user-select: none;
+}
+
+#cube {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: auto;
+  transform-style: preserve-3d;
+  transform: rotateX(-30deg) rotateY(45deg);
+  transition: transform 0.3s ease;
+  cursor: grab;
+}
+
+.face {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  display: grid;
+  grid-template-columns: repeat(3, 40px);
+  grid-template-rows: repeat(3, 40px);
+  gap: 2px;
+  transition: transform 0.3s;
+  backface-visibility: hidden;
+}
+
+.tile {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #333;
+  backface-visibility: hidden;
+}
+
+#F { transform: translateZ(60px); }
+#B { transform: rotateY(180deg) translateZ(60px); }
+#U { transform: rotateX(90deg) translateZ(60px); }
+#D { transform: rotateX(-90deg) translateZ(60px); }
+#L { transform: rotateY(-90deg) translateZ(60px); }
+#R { transform: rotateY(90deg) translateZ(60px); }
+
+.controls { text-align: center; margin-bottom: 1rem; }
+.controls button {
+  margin: 0 0.25rem;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid #666;
+  background: #222;
+  color: #fff;
+  cursor: pointer;
+}
+.controls button:hover {
+  background: #333;
+}
+
+#cube.dragging {
+  cursor: grabbing;
+}
