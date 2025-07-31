@@ -1,10 +1,10 @@
 const colors = {
-  U: 'white',
-  D: 'yellow',
-  F: 'green',
-  B: 'blue',
-  L: 'orange',
-  R: 'red'
+  U: '#f0f0f0',
+  D: '#ffdc00',
+  F: '#2ecc40',
+  B: '#0074d9',
+  L: '#ff851b',
+  R: '#ff4136'
 };
 
 const cube = {
@@ -149,12 +149,12 @@ function setup() {
 }
 
 const faceTransforms = {
-  U: 'rotateX(90deg) translateZ(60px)',
-  D: 'rotateX(-90deg) translateZ(60px)',
-  F: 'translateZ(60px)',
-  B: 'rotateY(180deg) translateZ(60px)',
-  L: 'rotateY(-90deg) translateZ(60px)',
-  R: 'rotateY(90deg) translateZ(60px)'
+  U: 'rotateX(90deg) translateZ(75px)',
+  D: 'rotateX(-90deg) translateZ(75px)',
+  F: 'translateZ(75px)',
+  B: 'rotateY(180deg) translateZ(75px)',
+  L: 'rotateY(-90deg) translateZ(75px)',
+  R: 'rotateY(90deg) translateZ(75px)'
 };
 
 const faceAxis = { U: 'Y', D: 'Y', F: 'Z', B: 'Z', L: 'X', R: 'X' };
