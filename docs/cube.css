@@ -57,6 +57,14 @@
   background: #333;
 }
 
+.instructions {
+  text-align: center;
+  color: #ccc;
+  font-size: 0.9rem;
+  max-width: 260px;
+  margin: 0 auto;
+}
+
 #cube.dragging {
   cursor: grabbing;
 }
