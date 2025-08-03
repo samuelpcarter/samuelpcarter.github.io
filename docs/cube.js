@@ -322,6 +322,8 @@ document.addEventListener('keydown', e => {
     case 'B': return queueMove('B');
     case 'L': return queueMove('L');
     case 'R': return queueMove('R');
+    case 'S': return scramble();
+    case 'X': return resetCube();
     default: return;
   }
 });
