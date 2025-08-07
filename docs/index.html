@@ -3,22 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Rubik's Cube Simulator</title>
-  <link rel="stylesheet" href="cube.css">
+  <title>Rocket Orbit Animation</title>
   <style>
-    body{margin:0;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;background:#111;color:#fff;font-family:sans-serif;}
+    body { margin:0; overflow:hidden; background:#000; }
+    #info { position:absolute; top:10px; left:10px; color:#fff; font-family:sans-serif; }
   </style>
 </head>
 <body>
-  <div id="scene"><div id="cube"></div></div>
-  <div class="controls">
-    <button id="scramble-btn">Scramble</button>
-    <button id="reset-btn">Reset</button>
-  </div>
-  <p class="instructions">
-    Use arrow keys to rotate the cube and U, D, F, B, L, R keys for face turns.
-    Press S to scramble and X to reset.
-  </p>
-  <script src="cube.js"></script>
+  <div id="info">Rocket entering Earth orbit (Three.js)</div>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.150.1/build/three.min.js"></script>
+  <script src="rocket.js"></script>
 </body>
 </html>
