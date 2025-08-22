@@ -1,19 +1,53 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Rocket</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Drink Guardian Coaster</title>
   <style>
     body {
       margin: 0;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       height: 100vh;
+      font-family: sans-serif;
+      text-align: center;
+      background: #f5f5f5;
+    }
+    h1 {
+      margin-bottom: 0.5em;
+    }
+    button {
+      padding: 1em 2em;
+      font-size: 1.2em;
+      margin-top: 1em;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  🚀
+  <h1>Drink Guardian Coaster</h1>
+  <p>Place the coaster on the rim of your glass and tap the button to arm it.</p>
+  <button id="armBtn">Arm</button>
+  <button id="disarmBtn" hidden>Disarm</button>
+  <p id="status"></p>
+  <script>
+    const armBtn = document.getElementById('armBtn');
+    const disarmBtn = document.getElementById('disarmBtn');
+    const status = document.getElementById('status');
+
+    armBtn.addEventListener('click', () => {
+      armBtn.hidden = true;
+      disarmBtn.hidden = false;
+      status.textContent = 'Coaster armed. Monitoring for drink spiking until you disarm with your phone.';
+    });
+
+    disarmBtn.addEventListener('click', () => {
+      disarmBtn.hidden = true;
+      status.textContent = 'Coaster disarmed. Stay safe!';
+    });
+  </script>
 </body>
 </html>
