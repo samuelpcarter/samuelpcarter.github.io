@@ -1,53 +1,220 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Drink Guardian Coaster</title>
+  <title>Samuel Carter - Resume</title>
   <style>
-    body {
+    * {
       margin: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      font-family: sans-serif;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #222;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      overflow: hidden;
+    }
+    .header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 40px;
       text-align: center;
-      background: #f5f5f5;
+      border-bottom: 5px solid #ffd700;
     }
     h1 {
-      margin-bottom: 0.5em;
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      letter-spacing: 1px;
     }
-    button {
-      padding: 1em 2em;
-      font-size: 1.2em;
-      margin-top: 1em;
-      cursor: pointer;
+    .contact-info {
+      font-size: 0.95em;
+      opacity: 0.95;
+    }
+    .contact-info a {
+      color: #ffd700;
+      text-decoration: none;
+    }
+    .contact-info a:hover {
+      text-decoration: underline;
+    }
+    .content {
+      padding: 40px;
+    }
+    h2 {
+      font-size: 1.3em;
+      margin-top: 30px;
+      margin-bottom: 15px;
+      color: #333;
+      border-bottom: 2px solid #667eea;
+      padding-bottom: 8px;
+      font-weight: 700;
+    }
+    h3 {
+      font-size: 1.05em;
+      margin-top: 15px;
+      margin-bottom: 3px;
+      color: #222;
+      font-weight: 600;
+    }
+    .job-header {
+      font-weight: 600;
+      color: #222;
+    }
+    .meta {
+      color: #666;
+      font-size: 0.95em;
+      margin-bottom: 8px;
+    }
+    ul {
+      margin-left: 20px;
+      margin-bottom: 15px;
+    }
+    li {
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+    .section {
+      margin-bottom: 25px;
+    }
+    .skills-section {
+      margin-bottom: 20px;
+    }
+    .skill-item {
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .award-item {
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+    @media (max-width: 768px) {
+      .content {
+        padding: 20px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Drink Guardian Coaster</h1>
-  <p>Place the coaster on the rim of your glass and tap the button to arm it.</p>
-  <button id="armBtn">Arm</button>
-  <button id="disarmBtn" hidden>Disarm</button>
-  <p id="status"></p>
-  <script>
-    const armBtn = document.getElementById('armBtn');
-    const disarmBtn = document.getElementById('disarmBtn');
-    const status = document.getElementById('status');
+  <div class="container">
+    <div class="header">
+      <h1>SAMUEL CARTER</h1>
+      <div class="contact-info">
+        Carlsbad, CA 92008 • (760) 421-1251 • <a href="mailto:samcart37@gmail.com">samcart37@gmail.com</a> • <a href="https://linkedin.com/in/sam-carter-ai/" target="_blank">linkedin.com/in/sam-carter-ai/</a>
+      </div>
+    </div>
 
-    armBtn.addEventListener('click', () => {
-      armBtn.hidden = true;
-      disarmBtn.hidden = false;
-      status.textContent = 'Coaster armed. Monitoring for drink spiking until you disarm with your phone.';
-    });
+    <div class="content">
+      <section class="section">
+        <h2>SUMMARY OF QUALIFICATIONS</h2>
+        <ul>
+          <li>4.0 GPA; AI Certificate with Honors, MiraCosta College, member of California's first undergraduate AI cohort; CSIT Advisory Board member; transferring to SDSU (B.S. Artificial Intelligence, 2029); regular reader of Anthropic/Claude research publications, Bitcoin Policy Institute briefs, and open-source AI communities</li>
+          <li>Active Bitcoin solo miner, full-node operator, and Lightning Network user; collaborated with Bitcoin industry professionals including principals at FrameworkIT; engages daily with Bitcoin monetary theory, energy policy, and protocol-level technical research</li>
+          <li>Led a team of 8 at GKN Additive operating $30M+ of industrial manufacturing equipment; achieved company's decade-best utilization month; built custom AI assistant that let Vietnamese and Spanish speakers maintain equipment in their native language</li>
+          <li>1,500+ community-service hours mentoring 35 robotics teams; STEM curriculum still in active use at Carlsbad institutions; personally mentored student now placed at SpaceX (Summer 2025)</li>
+          <li>Top 8% nationally, National Cyber League Fall 2024; open-source AI contributor; digital privacy advocate; Spanish bilingual (Certificate of Biliteracy, 2020)</li>
+        </ul>
+      </section>
 
-    disarmBtn.addEventListener('click', () => {
-      disarmBtn.hidden = true;
-      status.textContent = 'Coaster disarmed. Stay safe!';
-    });
-  </script>
+      <section class="section">
+        <h2>EDUCATION</h2>
+        <div>
+          <div class="job-header">MiraCosta College, Oceanside, CA | A.S., Artificial Intelligence | GPA: 4.0 | Expected December 2027</div>
+          <ul>
+            <li>AI Certificate with Honors, 2025: inaugural California cohort | CSIT Advisory Board | Club IT & AI Discovery Lab, 2023–2025</li>
+            <li>Relevant Coursework: CSIT 150 – Introduction to AI (Intelligent agents, search algorithms, probabilistic reasoning, and ML in Python); CSIT 151 – Applied AI and Machine Learning (Supervised and unsupervised learning, neural networks, deep learning using scikit-learn, TensorFlow, and Hugging Face); Programming Fundamentals (Java/Python)</li>
+          </ul>
+        </div>
+        <div>
+          <div class="job-header">Palomar College, San Marcos, CA | Cybersecurity Coursework 2020–2021</div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>LEADERSHIP & VOLUNTEER EXPERIENCE</h2>
+        <div>
+          <div class="job-header">Carlsbad Educational Foundation, Robotics Program Coordinator | 2020–Present</div>
+          <ul>
+            <li>Technical Advisor & Lead Mentor: Designed and delivered original STEM robotics curriculum for middle school enrichment programs; led 30 summer programs over 5 years reaching hundreds of students across the Carlsbad Unified district</li>
+            <li>Logged 1,500+ mentorship hours coaching 35 teams through competitions including regional and state-level FIRST events; one personally mentored student accepted to SpaceX engineering internship (Summer 2025)</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>WORK EXPERIENCE</h2>
+
+        <div>
+          <div class="job-header">In-N-Out Burger, San Diego, CA | Lead Associate | 2021–2022</div>
+          <ul>
+            <li>Received In-N-Out's Silver Coin recognition for performance excellence and Employee of the Month; led morning crew before transitioning to concurrent roles at GKN Additive</li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="job-header">PSU Concrete, San Diego, CA | Data & Automation Systems Developer (Contract) | 2025</div>
+          <ul>
+            <li>Designed and delivered custom data automation tools: VBA-scripted Excel models integrated with Access databases for operational data workflows; full-scope contract from requirements through deployment</li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="job-header">GKN Additive, San Diego, CA | Machine Technician | 2022–2024</div>
+          <ul>
+            <li>Supervised a team of 8 technicians operating $30M+ of precision additive manufacturing equipment including 4 industrial SLA machine types and 8 supporting hardware and software technologies</li>
+            <li>Achieved the facility's decade-best equipment utilization month by redesigning daily scheduling workflow, reducing downtime through proactive maintenance cycles, and cross-training team members across machine types</li>
+            <li>Built and deployed a custom AI assistant on ChatGPT: loaded all machine documentation as indexed knowledge and personally trained Vietnamese- and Spanish-speaking technicians to use it; usage continued growing after I left</li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="job-header">FrameworkIT, Bitcoin Industry Collaboration | Independent Contributor (Project Basis) | 2023–Present</div>
+          <ul>
+            <li>Collaborated with Bitcoin industry professionals on mining hardware, network infrastructure, and proof-of-work economics; active solo miner, full-node operator, and Lightning Network user, applying hands-on protocol knowledge to ongoing policy analysis on mining decentralization and grid access</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>SKILLS</h2>
+        <div class="skills-section">
+          <div class="skill-item"><strong>Software / AI:</strong> Claude API, Gemini, Hugging Face; Python, Java; scikit-learn, TensorFlow; LLM prompt engineering and API integration; local model deployment; open-source AI development</div>
+          <div class="skill-item"><strong>Bitcoin:</strong> 80 TH/s ASIC; Ocean/Braiins/solo mining; full node; Umbrel/Start9 Lightning; OpenNode payments; proof-of-work protocol research; Bitcoin monetary theory, energy policy, peer-to-peer rights</div>
+          <div class="skill-item"><strong>Robotics / Ops:</strong> Java autonomous systems (FIRST/FRC); PID control, sensor fusion, state-machine design; 15+ years hands-on; lean manufacturing, Kanban scheduling, Kaizen</div>
+          <div class="skill-item"><strong>Cybersecurity:</strong> Top 8% nationally, National Cyber League (NCL) Fall 2024: individual competitive cybersecurity challenge (cryptography, network analysis, log analysis, OSINT); digital privacy advocacy</div>
+          <div class="skill-item"><strong>Research Habits:</strong> Regular reader of Anthropic research publications, BPI policy briefs, and Bitcoin technical literature; open-source contributor; tracks AI policy and energy regulatory proceedings</div>
+          <div class="skill-item"><strong>Languages:</strong> English (native); Spanish (bilingual, Certificate of Biliteracy, 2020)</div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>AWARDS & RECOGNITION</h2>
+        <ul>
+          <li>2025 AI Certificate with Honors, MiraCosta College; 4.0 GPA; member of California's inaugural undergraduate AI cohort</li>
+          <li>2024 Top 8% Nationally: National Cyber League (NCL) Fall 2024; competed in cryptography, network traffic analysis, log analysis, and open-source intelligence</li>
+          <li>2023 Triple Crown Thru-Hike: PCT, CDT, Appalachian Trail; 5,000 miles in 10 months; returned to technical work immediately upon completion</li>
+          <li>2021 Colorado Trail Thru-Hike: 500 miles solo across Colorado; completed after Palomar College</li>
+          <li>2019 Innovate Award: FIRST Robotics World Championship, Houston, TX; recognized for novel autonomous control architecture and AI-assisted decision logic on competition hardware</li>
+          <li>2019 2nd Place Inspire Award: FIRST Robotics World Championship; awarded for curriculum-building, mentorship, and inspiring the next generation of STEM students</li>
+          <li>2020 California State Seal: Certificate of Spanish Biliteracy; full professional and academic proficiency in English and Spanish</li>
+        </ul>
+      </section>
+    </div>
+  </div>
 </body>
 </html>
