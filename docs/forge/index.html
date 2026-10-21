@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Forge | Samuel Carter</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;line-height:1.6;color:#222;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);padding:40px 20px;min-height:100vh}
+  .container{max-width:820px;margin:0 auto;background:#fff;border-radius:10px;padding:40px;box-shadow:0 10px 40px rgba(0,0,0,.2)}
+  a{color:#5a4fcf}
+  .back{font-size:14px}
+  h1{font-size:32px;margin:14px 0 4px}
+  .sub{color:#555;margin-bottom:24px}
+  h2{font-size:18px;letter-spacing:.04em;color:#444;border-bottom:2px solid #667eea;padding-bottom:4px;margin:26px 0 10px}
+  ul{padding-left:22px}li{margin:6px 0}
+  @media(max-width:600px){.container{padding:24px}}
+</style>
+</head>
+<body>
+<div class="container">
+  <a class="back" href="../">Back to resume</a>
+  <h1>Forge</h1>
+  <p class="sub">A personal AI operating system I built in October 2026 to run school, work and life admin from one chat.</p>
+
+  <h2>THE PROBLEM</h2>
+  <ul>
+    <li>Two jobs, a full course load, transfer applications and volunteer roles meant tasks lived in a dozen places: two email accounts, texts, Canvas, group chats, calendars.</li>
+    <li>Things slipped through. I wanted one place that catches everything and one assistant that can act on it.</li>
+  </ul>
+
+  <h2>WHAT IT DOES</h2>
+  <ul>
+    <li><b>One chat, many jobs.</b> I give Claude a long request and it runs several jobs side by side; a live agents board on the dashboard shows each one and pings when it finishes.</li>
+    <li><b>Scheduled agent.</b> Three times a day it reads new email, texts and the class site, checks calendars, and turns anything that needs me into a task with a date.</li>
+    <li><b>Dashboard.</b> One scrolling page: what's next, today in time order, the week as day cards, areas of life, goals, a Pomodoro timer.</li>
+    <li><b>Never loses a task.</b> Anything I mention, even in passing, is written to a Kanban list before the reply.</li>
+    <li><b>Work-hours tracker.</b> A script rebuilds billable hours from chat history and messages across two accounts, so timesheets are drafted, not reconstructed from memory.</li>
+    <li><b>Versioned.</b> Every save is committed and pushed to a private GitHub repo, so I can see what changed and when.</li>
+  </ul>
+
+  <h2>HOW IT'S BUILT</h2>
+  <ul>
+    <li>Plain Markdown files (Obsidian vault) as the source of truth for tasks, calendar and per-area handoff notes.</li>
+    <li>A Python build step turns those files into the dashboard; a small Python server serves it locally and stores tickets.</li>
+    <li>Claude (Claude Code) with connectors for Gmail, Calendar, Slack and the browser, plus read-only access to the Mac Messages database.</li>
+    <li>Guardrails: the scheduled agent never sends, deletes or redesigns on its own; it drafts and files tickets for me to approve.</li>
+  </ul>
+
+  <h2>WHAT I LEARNED</h2>
+  <ul>
+    <li>Agents need clear rules more than clever prompts: a short written rulebook beat long instructions.</li>
+    <li>Checking work mechanically (by ID and count) catches more than "looks right".</li>
+    <li>The best interface is the one you glance at: short bullets and a live panel beat long replies.</li>
+  </ul>
+
+  <h2>NEXT</h2>
+  <ul>
+    <li>Type to the agent straight from the dashboard.</li>
+    <li>Search across my files, browser and email in one box.</li>
+    <li>Fitness planner and a business-coach view.</li>
+  </ul>
+  <p class="sub" style="margin-top:24px">The real system holds private data, so it isn't public. Happy to demo it live.</p>
+</div>
+</body>
+</html>
