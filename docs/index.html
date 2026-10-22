@@ -3,237 +3,153 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Samuel Carter - Resume</title>
+  <title>Samuel Carter</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <meta name="description" content="Samuel Carter builds AI systems that run real work: Forge, Sunfact Tech, Bitcoin infrastructure and robotics mentoring." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    :root{
+      --bg:#0e0e14;--card:#16161f;--line:#24243a;--text:#ecebf3;--muted:#9a99ad;--faint:#6c6b80;
+      --a:#8b9bff;--b:#a77bdb;--gold:#ffd25e;
     }
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      line-height: 1.6;
-      color: #222;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      padding: 40px 20px;
-      min-height: 100vh;
-    }
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      background: white;
-      border-radius: 15px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-      overflow: hidden;
-    }
-    .header {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      padding: 40px;
-      text-align: center;
-      border-bottom: 5px solid #ffd700;
-    }
-    h1 {
-      font-size: 2.5em;
-      margin-bottom: 10px;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-      letter-spacing: 1px;
-    }
-    .contact-info {
-      font-size: 0.95em;
-      opacity: 0.95;
-    }
-    .contact-info a {
-      color: #ffd700;
-      text-decoration: none;
-    }
-    .contact-info a:hover {
-      text-decoration: underline;
-    }
-    .content {
-      padding: 40px;
-    }
-    h2 {
-      font-size: 1.3em;
-      margin-top: 30px;
-      margin-bottom: 15px;
-      color: #333;
-      border-bottom: 2px solid #667eea;
-      padding-bottom: 8px;
-      font-weight: 700;
-    }
-    h3 {
-      font-size: 1.05em;
-      margin-top: 15px;
-      margin-bottom: 3px;
-      color: #222;
-      font-weight: 600;
-    }
-    .job-header {
-      font-weight: 600;
-      color: #222;
-    }
-    .meta {
-      color: #666;
-      font-size: 0.95em;
-      margin-bottom: 8px;
-    }
-    ul {
-      margin-left: 20px;
-      margin-bottom: 15px;
-    }
-    li {
-      margin-bottom: 8px;
-      line-height: 1.5;
-    }
-    .section {
-      margin-bottom: 25px;
-    }
-    .skills-section {
-      margin-bottom: 20px;
-    }
-    .skill-item {
-      margin-bottom: 10px;
-      line-height: 1.5;
-    }
-    .award-item {
-      margin-bottom: 8px;
-      line-height: 1.5;
-    }
-    @media (max-width: 768px) {
-      .content {
-        padding: 20px;
-      }
-      h1 {
-        font-size: 1.8em;
-      }
-    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--text);font:17px/1.6 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+    body::before{content:"";position:fixed;inset:0;pointer-events:none;
+      background:radial-gradient(800px 420px at 85% -5%,rgba(139,155,255,.16),transparent 60%),radial-gradient(700px 500px at -10% 40%,rgba(167,123,219,.10),transparent 60%)}
+    a{color:inherit}
+    .wrap{position:relative;max-width:980px;margin:0 auto;padding:0 clamp(18px,4vw,32px)}
+    h1,h2,h3{font-family:"Space Grotesk",Inter,sans-serif;letter-spacing:-.02em}
+
+    nav{display:flex;justify-content:space-between;align-items:center;padding:22px 0}
+    nav .mark{display:flex;align-items:center;gap:10px;font-family:"Space Grotesk";font-weight:700;text-decoration:none}
+    nav .mark img{width:28px;height:28px}
+    nav .links{display:flex;gap:18px;font-size:15px}
+    nav .links a{color:var(--muted);text-decoration:none}nav .links a:hover{color:var(--text)}
+
+    .hero{padding:clamp(56px,10vw,110px) 0 clamp(48px,8vw,80px)}
+    .eyebrow{color:var(--a);font-weight:600;font-size:14px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:18px}
+    .hero h1{font-size:clamp(40px,7vw,72px);line-height:1.02;font-weight:700;max-width:14ch}
+    .hero h1 em{font-style:normal;background:linear-gradient(90deg,var(--a),var(--b));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .hero p{color:var(--muted);font-size:clamp(17px,2vw,20px);max-width:56ch;margin-top:22px}
+    .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:999px;font-weight:600;font-size:15px;text-decoration:none;border:1px solid var(--line)}
+    .btn.primary{background:linear-gradient(90deg,var(--a),var(--b));border:0;color:#0e0e14}
+    .btn:hover{transform:translateY(-1px)}
+
+    section{padding:clamp(40px,7vw,72px) 0;border-top:1px solid var(--line)}
+    .sh{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:28px;flex-wrap:wrap}
+    .sh h2{font-size:clamp(26px,3.4vw,34px)}
+    .sh span{color:var(--faint);font-size:15px}
+
+    .work{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:16px}
+    .proj{position:relative;display:block;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:26px;text-decoration:none;transition:border-color .2s,transform .2s;overflow:hidden}
+    .proj:hover{border-color:#3a3a5c;transform:translateY(-2px)}
+    .proj .tag{font-size:13px;color:var(--a);font-weight:600}
+    .proj h3{font-size:26px;margin:8px 0 10px}
+    .proj p{color:var(--muted)}
+    .proj .go{margin-top:18px;font-weight:600;font-size:15px}
+    .proj .go::after{content:" \2192"}
+    .proj::after{content:"";position:absolute;right:-60px;top:-60px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(139,155,255,.18),transparent 70%)}
+
+    .areas{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:16px}
+    .area{padding:4px 0}
+    .area h3{font-size:19px;margin-bottom:8px}
+    .area p{color:var(--muted);font-size:15.5px}
+    .area .n{display:block;font-family:"Space Grotesk";font-size:34px;font-weight:700;color:var(--gold);line-height:1.1;margin-bottom:6px}
+
+    .tl{display:grid;gap:4px}
+    .row{display:grid;grid-template-columns:130px minmax(0,1fr);gap:6px 24px;padding:16px 0;border-bottom:1px solid var(--line)}
+    .row .when{color:var(--faint);font-size:14.5px;padding-top:2px}
+    .row h3{font-size:18px;font-family:Inter;font-weight:600;letter-spacing:0}
+    .row h3 small{color:var(--muted);font-weight:500;font-size:15px}
+    .row p{color:var(--muted);font-size:15.5px;margin-top:4px}
+    @media(max-width:600px){.row{grid-template-columns:1fr}.row .when{padding:0}}
+
+    .chips{display:flex;flex-wrap:wrap;gap:8px}
+    .chip{font-size:14px;padding:6px 12px;border-radius:999px;background:var(--card);border:1px solid var(--line);color:#c9c8d8}
+
+    footer{border-top:1px solid var(--line);padding:56px 0 64px}
+    footer h2{font-size:clamp(28px,4vw,40px);max-width:18ch}
+    footer .cta{margin-top:24px}
+    footer small{display:block;color:var(--faint);margin-top:36px;font-size:13px}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn:hover,.proj:hover{transform:none}}
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <h1>SAMUEL CARTER</h1>
-      <div class="contact-info">
-        Carlsbad, CA 92008 • (760) 421-1251 • <a href="mailto:samcart37@gmail.com">samcart37@gmail.com</a> • <a href="https://linkedin.com/in/sam-carter-ai/" target="_blank">linkedin.com/in/sam-carter-ai/</a>
-      </div>
+<div class="wrap">
+  <nav>
+    <a class="mark" href="/"><img src="/favicon.svg" alt="" />Samuel Carter</a>
+    <div class="links"><a href="#work">Work</a><a href="#about">About</a><a href="#contact">Contact</a></div>
+  </nav>
+
+  <header class="hero">
+    <div class="eyebrow">AI builder · Carlsbad, CA</div>
+    <h1>I build <em>AI systems</em> that run real work.</h1>
+    <p>From a personal AI operating system to agents for small businesses, Bitcoin infrastructure and a robotics program that has mentored 35 teams. Studying Artificial Intelligence with a 4.0 GPA.</p>
+    <div class="cta">
+      <a class="btn primary" href="#work">See the work</a>
+      <a class="btn" href="mailto:samcart37@gmail.com">Email me</a>
     </div>
+  </header>
 
-    <div class="content">
-      <section class="section">
-        <h2>SUMMARY OF QUALIFICATIONS</h2>
-        <ul>
-          <li>4.0 GPA; AI Certificate with Honors, MiraCosta College, member of California's first undergraduate AI cohort; CSIT Advisory Board member; transferring to SDSU (B.S. Artificial Intelligence, 2029); regular reader of Anthropic/Claude research publications, Bitcoin Policy Institute briefs, and open-source AI communities</li>
-          <li>Active Bitcoin solo miner, full-node operator, and Lightning Network user; collaborated with Bitcoin industry professionals including principals at FrameworkIT; engages daily with Bitcoin monetary theory, energy policy, and protocol-level technical research</li>
-          <li>Led a team of 8 at GKN Additive operating $30M+ of industrial manufacturing equipment; achieved company's decade-best utilization month; built custom AI assistant that let Vietnamese and Spanish speakers maintain equipment in their native language</li>
-          <li>1,500+ community-service hours mentoring 35 robotics teams; STEM curriculum still in active use at Carlsbad institutions; personally mentored student now placed at SpaceX (Summer 2025)</li>
-          <li>Top 8% nationally, National Cyber League Fall 2024; open-source AI contributor; digital privacy advocate; Spanish bilingual (Certificate of Biliteracy, 2020)</li>
-        </ul>
-      </section>
-
-      <section class="section">
-        <h2>EDUCATION</h2>
-        <div>
-          <div class="job-header">MiraCosta College, Oceanside, CA | A.S., Artificial Intelligence | GPA: 4.0 | Expected December 2027</div>
-          <ul>
-            <li>AI Certificate with Honors, 2025: inaugural California cohort | CSIT Advisory Board | Club IT & AI Discovery Lab, 2023–2025</li>
-            <li>Relevant Coursework: CSIT 150 – Introduction to AI (Intelligent agents, search algorithms, probabilistic reasoning, and ML in Python); CSIT 151 – Applied AI and Machine Learning (Supervised and unsupervised learning, neural networks, deep learning using scikit-learn, TensorFlow, and Hugging Face); Programming Fundamentals (Java/Python)</li>
-          </ul>
-        </div>
-        <div>
-          <div class="job-header">Palomar College, San Marcos, CA | Cybersecurity Coursework 2020–2021</div>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>LEADERSHIP & VOLUNTEER EXPERIENCE</h2>
-        <div>
-          <div class="job-header">Carlsbad Educational Foundation, Robotics Program Coordinator | 2020–Present</div>
-          <ul>
-            <li>Technical Advisor & Lead Mentor: Designed and delivered original STEM robotics curriculum for middle school enrichment programs; led 30 summer programs over 5 years reaching hundreds of students across the Carlsbad Unified district</li>
-            <li>Logged 1,500+ mentorship hours coaching 35 teams through competitions including regional and state-level FIRST events; one personally mentored student accepted to SpaceX engineering internship (Summer 2025)</li>
-          </ul>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>WORK EXPERIENCE</h2>
-
-        <div>
-          <div class="job-header">In-N-Out Burger, San Diego, CA | Lead Associate | 2021–2022</div>
-          <ul>
-            <li>Received In-N-Out's Silver Coin recognition for performance excellence and Employee of the Month; led morning crew before transitioning to concurrent roles at GKN Additive</li>
-          </ul>
-        </div>
-
-        <div>
-          <div class="job-header">PSU Concrete, San Diego, CA | Data & Automation Systems Developer (Contract) | 2025</div>
-          <ul>
-            <li>Designed and delivered custom data automation tools: VBA-scripted Excel models integrated with Access databases for operational data workflows; full-scope contract from requirements through deployment</li>
-          </ul>
-        </div>
-
-        <div>
-          <div class="job-header">GKN Additive, San Diego, CA | Machine Technician | 2022–2024</div>
-          <ul>
-            <li>Supervised a team of 8 technicians operating $30M+ of precision additive manufacturing equipment including 4 industrial SLA machine types and 8 supporting hardware and software technologies</li>
-            <li>Achieved the facility's decade-best equipment utilization month by redesigning daily scheduling workflow, reducing downtime through proactive maintenance cycles, and cross-training team members across machine types</li>
-            <li>Built and deployed a custom AI assistant on ChatGPT: loaded all machine documentation as indexed knowledge and personally trained Vietnamese- and Spanish-speaking technicians to use it; usage continued growing after I left</li>
-          </ul>
-        </div>
-
-        <div>
-          <div class="job-header">FrameworkIT, Bitcoin Industry Collaboration | Independent Contributor (Project Basis) | 2023–Present</div>
-          <ul>
-            <li>Collaborated with Bitcoin industry professionals on mining hardware, network infrastructure, and proof-of-work economics; active solo miner, full-node operator, and Lightning Network user, applying hands-on protocol knowledge to ongoing policy analysis on mining decentralization and grid access</li>
-          </ul>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>PROJECTS</h2>
-        <div class="job">
-          <div class="job-header">Forge: personal AI operating system | Python, JavaScript, Claude | 2026</div>
-          <ul>
-            <li>Built a local dashboard plus scheduled AI agents that run my school, work and personal admin from one chat: they watch email, texts, Canvas and calendars three times a day and turn anything new into tasks</li>
-            <li>Live agents board shows background jobs as they run and pings when each finishes; every change is versioned to a private GitHub repo</li>
-            <li><a href="forge/">Read the write-up</a></li>
-          </ul>
-        </div>
-        <div class="job">
-          <div class="job-header">Sunfact Tech: AI business software | Founder | 2026–Present</div>
-          <ul>
-            <li>Building Forge-style AI dashboards and agents for small businesses: inbox, scheduling and task automation with human approval</li>
-            <li><a href="sunfact-tech/">See Sunfact Tech</a></li>
-          </ul>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>SKILLS</h2>
-        <div class="skills-section">
-          <div class="skill-item"><strong>Software / AI:</strong> Claude API, Gemini, Hugging Face; Python, Java; scikit-learn, TensorFlow; LLM prompt engineering and API integration; local model deployment; open-source AI development</div>
-          <div class="skill-item"><strong>Bitcoin:</strong> 80 TH/s ASIC; Ocean/Braiins/solo mining; full node; Umbrel/Start9 Lightning; OpenNode payments; proof-of-work protocol research; Bitcoin monetary theory, energy policy, peer-to-peer rights</div>
-          <div class="skill-item"><strong>Robotics / Ops:</strong> Java autonomous systems (FIRST/FRC); PID control, sensor fusion, state-machine design; 15+ years hands-on; lean manufacturing, Kanban scheduling, Kaizen</div>
-          <div class="skill-item"><strong>Cybersecurity:</strong> Top 8% nationally, National Cyber League (NCL) Fall 2024: individual competitive cybersecurity challenge (cryptography, network analysis, log analysis, OSINT); digital privacy advocacy</div>
-          <div class="skill-item"><strong>Research Habits:</strong> Regular reader of Anthropic research publications, BPI policy briefs, and Bitcoin technical literature; open-source contributor; tracks AI policy and energy regulatory proceedings</div>
-          <div class="skill-item"><strong>Languages:</strong> English (native); Spanish (bilingual, Certificate of Biliteracy, 2020)</div>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>AWARDS & RECOGNITION</h2>
-        <ul>
-          <li>2025 AI Certificate with Honors, MiraCosta College; 4.0 GPA; member of California's inaugural undergraduate AI cohort</li>
-          <li>2024 Top 8% Nationally: National Cyber League (NCL) Fall 2024; competed in cryptography, network traffic analysis, log analysis, and open-source intelligence</li>
-          <li>2023 Triple Crown Thru-Hike: PCT, CDT, Appalachian Trail; 5,000 miles in 10 months; returned to technical work immediately upon completion</li>
-          <li>2021 Colorado Trail Thru-Hike: 500 miles solo across Colorado; completed after Palomar College</li>
-          <li>2019 Innovate Award: FIRST Robotics World Championship, Houston, TX; recognized for novel autonomous control architecture and AI-assisted decision logic on competition hardware</li>
-          <li>2019 2nd Place Inspire Award: FIRST Robotics World Championship; awarded for curriculum-building, mentorship, and inspiring the next generation of STEM students</li>
-          <li>2020 California State Seal: Certificate of Spanish Biliteracy; full professional and academic proficiency in English and Spanish</li>
-        </ul>
-      </section>
+  <section id="work">
+    <div class="sh"><h2>Selected work</h2><span>2026</span></div>
+    <div class="work">
+      <a class="proj" href="forge/">
+        <div class="tag">Personal AI operating system · Python, JavaScript, Claude</div>
+        <h3>Forge</h3>
+        <p>A local dashboard plus scheduled AI agents that run my school, work and admin from one chat. They watch email, texts, Canvas and calendars and turn anything new into tasks, with every change versioned.</p>
+        <div class="go">Read the write-up</div>
+      </a>
+      <a class="proj" href="sunfact-tech/">
+        <div class="tag">Founder · 2026 to now</div>
+        <h3>Sunfact Tech</h3>
+        <p>Forge-style AI dashboards and agents for small businesses: inbox, scheduling and task automation, always with a human approving the final step.</p>
+        <div class="go">See Sunfact Tech</div>
+      </a>
     </div>
-  </div>
+  </section>
+
+  <section id="about">
+    <div class="sh"><h2>What I work on</h2></div>
+    <div class="areas">
+      <div class="area"><span class="n">4.0</span><h3>Applied AI</h3><p>A.S. in Artificial Intelligence at MiraCosta, AI Certificate with Honors from California's first undergraduate AI cohort, CSIT Advisory Board.</p></div>
+      <div class="area"><span class="n">80 TH/s</span><h3>Bitcoin</h3><p>Solo miner, full-node operator and Lightning user. Independent contributor with FrameworkIT on mining hardware and proof-of-work economics.</p></div>
+      <div class="area"><span class="n">1,500+</span><h3>Robotics mentoring</h3><p>Hours coaching 35 FIRST teams for the Carlsbad Educational Foundation. One mentee went on to a SpaceX internship.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sh"><h2>Experience</h2></div>
+    <div class="tl">
+      <div class="row"><div class="when">2025</div><div><h3>Data &amp; Automation Systems Developer <small>· PSU Concrete (contract)</small></h3><p>VBA-scripted Excel models tied to Access databases, delivered from requirements through deployment.</p></div></div>
+      <div class="row"><div class="when">2022 to 2024</div><div><h3>Machine Technician <small>· GKN Additive</small></h3><p>Led a team of 8 on $30M+ of industrial additive equipment, hit the facility's best utilization month in a decade, and built an AI assistant that let Vietnamese- and Spanish-speaking technicians work in their own language.</p></div></div>
+      <div class="row"><div class="when">2020 to now</div><div><h3>Robotics Program Coordinator <small>· Carlsbad Educational Foundation</small></h3><p>Designed the STEM robotics curriculum still in use and ran 30 summer programs over 5 years.</p></div></div>
+      <div class="row"><div class="when">2023 to now</div><div><h3>Independent Contributor <small>· FrameworkIT, Bitcoin industry</small></h3><p>Mining hardware, network infrastructure and policy work on mining decentralization and grid access.</p></div></div>
+      <div class="row"><div class="when">2021 to 2022</div><div><h3>Lead Associate <small>· In-N-Out Burger</small></h3><p>Silver Coin recognition and Employee of the Month.</p></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sh"><h2>Toolkit</h2></div>
+    <div class="chips">
+      <span class="chip">Claude API</span><span class="chip">Gemini</span><span class="chip">Hugging Face</span><span class="chip">Python</span><span class="chip">Java</span><span class="chip">scikit-learn</span><span class="chip">TensorFlow</span><span class="chip">Local models</span><span class="chip">Prompt engineering</span><span class="chip">Full node</span><span class="chip">Lightning</span><span class="chip">FIRST / FRC</span><span class="chip">PID control</span><span class="chip">Kanban &amp; Kaizen</span><span class="chip">NCL top 8% (2024)</span><span class="chip">Spanish, bilingual</span>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <h2>Building something with AI? Let's talk.</h2>
+    <div class="cta">
+      <a class="btn primary" href="mailto:samcart37@gmail.com">samcart37@gmail.com</a>
+      <a class="btn" href="https://linkedin.com/in/sam-carter-ai/">LinkedIn</a>
+    </div>
+    <small>© 2026 Samuel Carter</small>
+  </footer>
+</div>
 </body>
 </html>
